@@ -1,0 +1,16 @@
+{
+  "pages":[
+    "pages/index/index"
+    ,"pages/map/map"
+    ,"pages/add_gourmet/add_gourmet"
+    ,"pages/detail/detail"
+  ]
+  ,"window":{
+    "backgroundTextStyle":"light"
+    ,"navigationBarBackgroundColor": "#000000"
+    ,"navigationBarTitleText": "地道美食地图"
+    ,"navigationBarTextStyle":"white"
+    ,"enablePullDownRefresh": false
+  }
+  ,"debug": true
+}
