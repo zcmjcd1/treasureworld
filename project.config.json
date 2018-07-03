@@ -11,9 +11,9 @@
 		"newFeature": true
 	},
 	"compileType": "miniprogram",
-	"libVersion": "2.0.7",
-	"appid": "touristappid",
-	"projectname": "%E5%9C%B0%E9%81%93%E7%BE%8E%E9%A3%9F%E5%9C%B0%E5%9B%BE",
+	"libVersion": "2.0.4",
+	"appid": "wx49ef15b51332b794",
+	"projectname": "mingmingai",
 	"isGameTourist": false,
 	"condition": {
 		"search": {

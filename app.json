@@ -1,16 +1,15 @@
 {
   "pages":[
-    "pages/index/index"
-    ,"pages/map/map"
-    ,"pages/add_gourmet/add_gourmet"
-    ,"pages/detail/detail"
-  ]
-  ,"window":{
-    "backgroundTextStyle":"light"
-    ,"navigationBarBackgroundColor": "#000000"
-    ,"navigationBarTitleText": "地道美食地图"
-    ,"navigationBarTextStyle":"white"
-    ,"enablePullDownRefresh": false
+    "pages/index/index",
+    "pages/logs/logs",
+    "pages/create/create",
+    "pages/detail/detail",
+    "pages/map/map"
+  ],
+  "window":{
+    "backgroundTextStyle":"light",
+    "navigationBarBackgroundColor": "#fff",
+    "navigationBarTitleText": "WeChat",
+    "navigationBarTextStyle":"black"
   }
-  ,"debug": true
 }
