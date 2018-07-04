@@ -1,50 +1,34 @@
 /**index.wxss**/
-.container {
-  background-color: whitesmoke;
-  flex-direction: column;
-  justify-content: flex-start;
-  align-content: flex-start;
-}
-create .subtitle {
-  padding: 20rpx 40rpx;
-  display: flex;
-  flex-direction: row;
+.add_treasure{
+  position: absolute;
+  bottom: 40rpx;
+  right: 50rpx;
+  box-shadow: 0 0rpx 15rpx rgba(0,0,0,.5);
+  background:#ffffff;
+  border-radius:50%;
+  display:flex;
   align-items: center;
-  position: sticky;
-  font-weight: 700;
-  top: 0;
-  font-size: small;
-  z-index: 999;
-  background: #f4f4f4;
-  border-top: 20rpx solid #f4f4f4;
+  justify-content: center;
 }
-create .item-wrapper{
-    width: 100%; 
-    overflow: hidden;
-    border-top: 1px solid #f4f4f4;
+.img {
+  width: 50px;
+  height: 50px;
 }
-create .create {
-  flex-wrap: nowrap;
-  border-radius: 5px;
-  display: flex;
-  width: 128rpx;
-  height:128rpx;
-  background-color: red;
-  flex-direction: column;
+.mine{
+  position: absolute;
+  bottom: 40rpx;
+  left: 50rpx;
+  box-shadow: 0 0rpx 15rpx rgba(0,0,0,.5);
+  background:#ffffff;
+  border-radius:50%;
+  display:flex;
   align-items: center;
+  justify-content: center;
 }
-
-.userinfo-avatar {
-  width: 128rpx;
-  height: 128rpx;
-  margin: 20rpx;
-  border-radius: 50%;
-}
-
-.userinfo-nickname {
-  color: #aaa;
-}
-
-.usermotto {
-  margin-top: 200px;
+.tips{
+    width: 100%;
+    text-align: center;
+    color: gray;
+    padding: 5px 0px 5px 0px;
+    font-size: 0.6em;
 }

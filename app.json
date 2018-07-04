@@ -1,15 +1,15 @@
 {
   "pages":[
     "pages/index/index",
-    "pages/logs/logs",
-    "pages/create/create",
+    "pages/add_treasure/add_treasure",
     "pages/detail/detail",
     "pages/map/map"
   ],
   "window":{
     "backgroundTextStyle":"light",
     "navigationBarBackgroundColor": "#fff",
-    "navigationBarTitleText": "WeChat",
+    "navigationBarTitleText": "宝藏世界",
     "navigationBarTextStyle":"black"
-  }
+  },
+  "debug": true
 }

@@ -1,4 +1,4 @@
-// pages/create/create.js
+// pages/add_treasure/add_treasure.js
 Page({
 
   /**
