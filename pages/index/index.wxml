@@ -1,7 +1,7 @@
 <!--index.wxml-->
 
 
-<map id="map" longitude="{{longitude}}" latitude="{{latitude}}" scale="14" bindcontroltap="controltap" markers="{{markers}}" bindmarkertap="markertap" polyline="{{polyline}}" bindregionchange="regionchange" show-location style="width:{{windowWidth}}px;height:{{windowHeight}}px">
+<map id="map" longitude="{{longitude}}" latitude="{{latitude}}" scale="19" bindcontroltap="controltap" markers="{{markers}}" bindmarkertap="markertap" polyline="{{polyline}}" bindregionchange="regionchange" show-location style="width:{{windowWidth}}px;height:{{windowHeight}}px">
   <cover-view class="add_treasure" bindtap="add_treasure">
     <cover-image class="img2" src="../../images/加号.png" />
     <cover-image class="img" src="../../images/宝箱.png" />

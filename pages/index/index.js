@@ -41,6 +41,7 @@ Page({
     })
     wx.getSystemInfo({
       success: (res) => {
+        console.log(res);
         this.setData({
           windowHeight: res.windowHeight * 0.8,
           windowWidth: res.windowWidth
@@ -61,6 +62,37 @@ Page({
     this.setData({
       userInfo: e.detail.userInfo,
       hasUserInfo: true
+    })
+  },
+  loc(e) {
+    var that = this;
+    wx.getLocation({
+      type: 'gcj02', //返回可以用于wx.openLocation的经纬度
+      success: function (res) {
+        console.log("locres", res.longitude)
+        // latitude = res.latitude;
+        // longitude = res.longitude;
+        // console.log("当前位置坐标：" + latitude + "，" + longitude)
+        that.setData({
+          longitude: res.longitude,
+          latitude: res.latitude
+        })
+      },
+      fail: function () {
+        console.log("获取位置失败");
+      }
+    })
+  },
+  add_treasure(e) {
+    console.log("跳转")
+    wx.navigateTo({
+      url: '/pages/add_treasure/add_treasure'
+    })
+  },
+  mine(e) {
+    console.log("跳转")
+    wx.navigateTo({
+      url: '/pages/mine/mine'
     })
   }
 })
