@@ -1,1 +1,8 @@
 /* pages/add_treasure/add_treasure.wxss */
+
+.changepic{
+  position: absolute;
+  right: 10rpx;
+  top:10rpx;
+  font-size: medium;
+}
