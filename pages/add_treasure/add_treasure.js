@@ -5,7 +5,14 @@ Page({
    * 页面的初始数据
    */
   data: {
-  
+    address: '点击选择位置',
+    longitude: 0, //经度
+    latitude: 0,//纬度
+    noteMaxLen: 200,//备注最多字数
+    content: "",
+    noteNowLen: 0,//备注当前字数
+    types: ["时效抽奖宝箱", "人数抽奖宝箱", "口令宝箱", "指定人群宝箱"],
+    typeIndex: "0",
   },
 
   /**
@@ -19,28 +26,44 @@ Page({
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady: function () {
-    this.chooseLocation()
+    // this.chooseLocation()
   },
-  chooseLocation: function () {
+  //改变宝箱类别
+  bindTypeChange: function (e) {
+    this.setData({
+      typeIndex: e.detail.value
+    })
+  },
+  chooseLocation: function (e) {
     console.log("star to chooselocation1!!!!!!!!")
     var that = this;
     wx.chooseLocation({
-      success: function (ret) {
-        console.log('chooseLocation', ret)
-        treasure_address = ret.address;
-        treasure_title = ret.name;
+      success: function (res) {
+        console.log(res)
         that.setData({
-          address: treasure_address,
-          title: treasure_title
+          address: res.name,
+          longitude: res.longitude, //经度
+          latitude: res.latitude,//纬度
         })
-        geopoint = {
-          latitude: +ret.latitude, //数值
-          longitude: +ret.longitude //数值
+        if (e.detail && e.detail.value) {
+          this.data.address = e.detail.value;
         }
       },
-      cancel: function () {
-        geopoint = null;//退出之后对象清空
+      fail: function (e) {
+      },
+      complete: function (e) {
       }
+    })
+  },
+  //字数改变触发事件
+  bindTextAreaChange: function (e) {
+    var that = this
+    var value = e.detail.value,
+      len = parseInt(value.length);
+    if (len > that.data.noteMaxLen)
+      return;
+    that.setData({
+      content: value, noteNowLen: len
     })
   },
 

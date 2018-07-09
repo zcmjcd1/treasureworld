@@ -1,16 +1,64 @@
 <!--pages/add_treasure/add_treasure.wxml-->
-<image style="width: 100%; height: 200px; background-color: #eeeeee;" mode="aspectFill" src="../../images/baoxiang.png">
-</image>
-<button class="changepic" bindtap="uploadPic">点击更换图片</button>
-<view style="padding:10px">
-    <button bindtap="chooseLocation" type="primary">重新选择位置</button>
-    <view style="height:8px"></view>
-    <text class="bold">地址：</text>
-    <input bindinput="inputAddress" value="{{address}}" maxlength="140" style="height:2em" class="input" />
-    <view style="height:5px"/>
-    <text class="bold">美食名称：</text>
-    <input bindinput="inputTitle" value="{{title}}" maxlength="140" style="height:2em" class="input" />
-    <view style="height:5px"/>
-    <text class="bold">简单描述一下：</text>
-    <textarea bindinput="inputDesc" maxlength="500" class="input" />
+
+<view class="add-page">
+  <form bindsubmit="submitForm">
+    <image style="width: 100%; height: 200px; background-color: #eeeeee;" mode="aspectFill" src="../../images/baoxiang.png">
+    </image>
+    <button class="changepic" bindtap="uploadPic">点击更换图片</button>
+    <view class="weui-toptips weui-toptips_warn" wx:if="{{showTopTips}}">{{TopTips}}</view>
+    <view class="mod-a">
+      <!-- 宝箱主题 -->
+      <view class="mod t-name">
+        <text class="key">宝箱名称</text>
+        <input name="title" class="input" maxlength="100" placeholder="请输入宝箱名称" value="{{title}}" />
+        <image class="arrow-r" src="/images/arrow-r-0.png"></image>
+      </view>
+    </view>
+
+    <view class="mod-a mt20">
+      <!-- 宝箱地点 -->
+      <view class="mod t-address">
+        <text class="key">宝箱地点</text>
+        <text name="address" class="value" bindtap="chooseLocation" >{{address}}</text>
+        <image class="arrow-r" src="/images/arrow-r-0.png"></image>
+      </view>
+
+      <!-- 宝箱介绍 -->
+      <view class="mod-a mt20">
+        <view class="mod-big my-nick">
+          <textarea name="content" class="weui-textarea" placeholder="请简单介绍您的宝箱" value="{{content}}" style="height: 7em" bindinput="bindTextAreaChange" maxlength="{{noteMaxLen}}" />
+          <view class="chnumber">{{noteNowLen}}/{{noteMaxLen}}</view>
+        </view>
+      </view>
+
+      <!-- 宝箱类别 -->
+      <view class="mod t-sign-time">
+        <text class="key">宝箱类别</text>
+        <picker bindchange="bindTypeChange" value="{{typeIndex}}" range="{{types}}">
+          <view class="value" name="types">{{types[typeIndex]}}
+            <image class="arrow-r" src="/images/arrow-r-0.png"></image>
+          </view>
+        </picker>
+      </view>
+
+      <view class="mod-a mt20">
+        <checkbox-group bindchange="bindAgreeChange">
+          <!-- <label class="weui-agree" for="weuiAgree">
+            <view class="weui-agree__text">
+              <checkbox class="weui-agree__checkbox" id="weuiAgree" value="agree" checked="{{isAgree}}" />
+              <view class="weui-agree__checkbox-icon">
+                <icon class="weui-agree__checkbox-icon-check" type="success_no_circle" size="9" wx:if="{{isAgree}}"></icon>
+              </view>
+              阅读并同意
+              <view bindtap="showNotice" class="weui-agree__link">
+                《创建须知》</view>
+            </view>
+          </label> -->
+        </checkbox-group>
+        <view class="submit-btn">
+          <button class='button' loading="{{isLoading}}" hover-start-time="200" disabled="{{isdisabled}}" formType="submit">创建新宝箱</button>
+        </view>
+      </view>
+    </view>
+  </form>
 </view>
