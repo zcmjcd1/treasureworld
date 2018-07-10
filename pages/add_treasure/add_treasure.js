@@ -6,12 +6,18 @@ Page({
    */
   data: {
     address: '点击选择位置',
+    multiArray: [['无脊柱动物', '脊柱动物'], ['扁性动物', '线形动物', '环节动物', '软体动物', '节肢动物'], ['猪肉绦虫', '吸血虫']],
+    multiIndex: [0, 0, 0],
     longitude: 0, //经度
     latitude: 0,//纬度
     noteMaxLen: 200,//备注最多字数
+    peopleHide: false,
+    timeHide: true,
+    passHide: false,
+    groupHide: false,
     content: "",
     noteNowLen: 0,//备注当前字数
-    types: ["时效抽奖宝箱", "人数抽奖宝箱", "口令宝箱", "指定人群宝箱"],
+    types: ["时效抽奖宝箱", "人数抽奖宝箱", "口令宝箱", "指定唯一宝箱"],
     typeIndex: "0",
   },
 
@@ -30,6 +36,35 @@ Page({
   },
   //改变宝箱类别
   bindTypeChange: function (e) {
+    if(e.detail.value==1){
+      this.setData({
+        peopleHide:true,
+        timeHide:false,
+        passHide:false,
+        groupHide:false
+      })
+    } else if(e.detail.value==0){
+      this.setData({
+        peopleHide: false,
+        timeHide: true,
+        passHide: false,
+        groupHide: false
+      })
+    } else if (e.detail.value == 2){
+      this.setData({
+        peopleHide: false,
+        timeHide: false,
+        passHide: true,
+        groupHide: false
+      })
+    } else if (e.detail.value == 3){
+      this.setData({
+        peopleHide: false,
+        timeHide: false,
+        passHide: false,
+        groupHide: true
+      })
+    }
     this.setData({
       typeIndex: e.detail.value
     })

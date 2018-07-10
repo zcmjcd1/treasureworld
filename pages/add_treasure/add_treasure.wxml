@@ -19,7 +19,7 @@
       <!-- 宝箱地点 -->
       <view class="mod t-address">
         <text class="key">宝箱地点</text>
-        <text name="address" class="value" bindtap="chooseLocation" >{{address}}</text>
+        <text name="address" class="value" bindtap="chooseLocation">{{address}}</text>
         <image class="arrow-r" src="/images/arrow-r-0.png"></image>
       </view>
 
@@ -40,10 +40,53 @@
           </view>
         </picker>
       </view>
+      <!-- 人数设置 -->
+      <view wx:if="{{peopleHide}}">
+        <view class="mod t-name">
+          <text class="key">人数设置</text>
+          <input name="peoplenum" type="number" class="input" maxlength="100" placeholder='请输入人数' value="{{peoplenum}}" />
+          <image class="arrow-r" src="/images/arrow-r-0.png"></image>
+        </view>
+      </view>
+      <!-- 口令提示,口令设置 -->
+      <view wx:if="{{passHide}}">
+        <view class="mod t-name">
+          <text class="key">口令提示,口令设置</text>
+          <input name="peoplenum" type="number" class="input" maxlength="100" placeholder='请输入人数' value="{{peoplenum}}" />
+          <image class="arrow-r" src="/images/arrow-r-0.png"></image>
+        </view>
+      </view>
+      <!-- 期限设置 -->
+      <view wx:if="{{timeHide}}">
+        <view class="mod t-name">
+          <text class="key">期限设置</text>
+          <!-- <view>{{year}}年{{month}}月{{day}}日</view>
+          <picker-view indicator-style="height: 50px;" style="width: 100%; height: 300px;" value="{{value}}" bindchange="bindChange">
+            <picker-view-column>
+              <view wx:for="{{days}}" style="line-height: 50px">{{item}}</view>
+            </picker-view-column>
+            <picker-view-column>
+              <view wx:for="{{hours}}" style="line-height: 50px">{{item}}</view>
+            </picker-view-column>
+            <picker-view-column>
+              <view wx:for="{{minutes}}" style="line-height: 50px">{{item}</view>
+            </picker-view-column>
+          </picker-view> -->
+          <image class="arrow-r" src="/images/arrow-r-0.png"></image>
+        </view>
+      </view>
+      <!-- 人群设置 -->
+      <view wx:if="{{groupHide}}">
+        <view class="mod t-name">
+          <text class="key">开宝箱限制设置</text>
+          <input name="peoplenum" type="number" class="input" maxlength="100" placeholder='请输入人数' value="{{peoplenum}}" />
+          <image class="arrow-r" src="/images/arrow-r-0.png"></image>
+        </view>
+      </view>
 
       <view class="mod-a mt20">
-        <checkbox-group bindchange="bindAgreeChange">
-          <!-- <label class="weui-agree" for="weuiAgree">
+        <!-- <checkbox-group bindchange="bindAgreeChange">
+           <label class="weui-agree" for="weuiAgree">
             <view class="weui-agree__text">
               <checkbox class="weui-agree__checkbox" id="weuiAgree" value="agree" checked="{{isAgree}}" />
               <view class="weui-agree__checkbox-icon">
@@ -53,8 +96,8 @@
               <view bindtap="showNotice" class="weui-agree__link">
                 《创建须知》</view>
             </view>
-          </label> -->
-        </checkbox-group>
+          </label> 
+        </checkbox-group> -->
         <view class="submit-btn">
           <button class='button' loading="{{isLoading}}" hover-start-time="200" disabled="{{isdisabled}}" formType="submit">创建新宝箱</button>
         </view>
