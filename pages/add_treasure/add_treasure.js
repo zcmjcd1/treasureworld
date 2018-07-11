@@ -13,6 +13,12 @@ function formate_data(myDate) {
   var formate_result = myDate.getFullYear() + '-' +
     month_add + '-' +
     myDate.getDate()
+  if(month_add<9){
+    formate_result = myDate.getFullYear() + '-0' +
+      month_add + '-' +
+      myDate.getDate()
+  }
+  
   return formate_result;
 }
 Page({
@@ -303,6 +309,7 @@ Page({
       tbox.set("boxintro",treasureIntro)
       tbox.set("boxcontent",treasureContent)
       tbox.set("gettype",typeIndex)//0不抽奖1时效抽奖2人数抽奖
+      console.log(timelimit)
       if(typeIndex=='1'){
         let timedata = {
           "__type": "Date",
@@ -325,7 +332,8 @@ Page({
       tbox.save().then(res => {
         common.showTip("添加成功");
         that.setData({
-          loading: false
+          isLoading: false,
+          isdisabled: true
         })
         // getList(that);
       }).catch(err => {
