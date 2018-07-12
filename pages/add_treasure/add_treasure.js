@@ -335,6 +335,9 @@ Page({
           isLoading: false,
           isdisabled: true
         })
+        wx.navigateTo({
+          url: '../index/index'
+        })
         // getList(that);
       }).catch(err => {
         console.log(err);

@@ -1,4 +1,14 @@
 /**index.wxss**/
+#swiper_area{
+    background: white;
+    margin-top: 0.2em;
+    padding-top: 10px;
+}
+
+.title{
+    font-size: 1.5em;
+    font-weight: 700;
+}
 .add_treasure{
   position: absolute;
   bottom: 40rpx;
