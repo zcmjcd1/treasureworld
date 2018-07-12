@@ -1,73 +1,85 @@
 /**index.wxss**/
-#swiper_area{
-    background: white;
-    margin-top: 0.2em;
-    padding-top: 10px;
+
+#swiper_area {
+  background: white;
+  /* margin-top: 0.2em; */
+  padding-top: 10px;
+  padding-bottom: 5px;
+   /* display: flex;  */
+   align-items: center; 
+    justify-content: center;  
 }
 
-.title{
-    font-size: 1.5em;
-    font-weight: 700;
+.title {
+  font-size: 1.5em;
+  font-weight: 700;
 }
-.add_treasure{
+
+.add_treasure {
   position: absolute;
   bottom: 40rpx;
   right: 50rpx;
   width: 108rpx;
   height: 84rpx;
-  box-shadow: 0 0rpx 25rpx rgba(0,0,0,.5);
-  background:#ffffff;
-  border-radius:20%;
-  display:flex;
+  box-shadow: 0 0rpx 25rpx rgba(0, 0, 0, 0.5);
+  background: #fff;
+  border-radius: 20%;
+  display: flex;
   align-items: center;
   justify-content: center;
 }
+
 .img {
   width: 70%;
   height: 70%;
 }
-.img2{
+
+.img2 {
   width: 50%;
   height: 50%;
 }
-.mine{
+
+.mine {
   position: absolute;
   bottom: 40rpx;
   left: 50rpx;
   width: 84rpx;
   height: 84rpx;
-  box-shadow: 0 0rpx 25rpx rgba(0,0,0,.5);
-  background:#ffffff;
-  border-radius:50%;
-  display:flex;
+  box-shadow: 0 0rpx 25rpx rgba(0, 0, 0, 0.5);
+  background: #fff;
+  border-radius: 50%;
+  display: flex;
   align-items: center;
   justify-content: center;
 }
-.loc{
+
+.loc {
   position: absolute;
   bottom: 160rpx;
   left: 50rpx;
   width: 84rpx;
   height: 84rpx;
-  border:none;
-  box-shadow: 0 0 15rpx rgba(0,0,0,0.4);
-  background:#ffffff;
-  border-radius:50%;
-  display:flex;
+  border: none;
+  box-shadow: 0 0 15rpx rgba(0, 0, 0, 0.4);
+  background: #fff;
+  border-radius: 50%;
+  display: flex;
   align-items: center;
   justify-content: center;
 }
-.centerloc{
+
+.centerloc {
   position: absolute;
   bottom: 34.5vh;
   right: 37vw;
-  width:150rpx;
-  height:150rpx;
+  width: 150rpx;
+  height: 150rpx;
 }
-.tips{
-    width: 100%;
-    text-align: center;
-    color: gray;
-    padding: 5px 0px 5px 0px;
-    font-size: 0.6em;
+
+.tips {
+  width: 100%;
+  text-align: center;
+  color: gray;
+  padding: 5px 0px 5px 0px;
+  font-size: 0.6em;
 }
