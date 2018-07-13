@@ -1,1 +1,5 @@
 /* pages/detail/detail.wxss */
+.view_description{
+    padding:3px 10px;
+    background: white;
+}

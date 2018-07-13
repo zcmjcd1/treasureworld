@@ -1,2 +1,32 @@
 <!--pages/detail/detail.wxml-->
 <text>pages/detail/detail.wxml</text>
+<view class="center">
+  <image src="{{treasurebox.imgsrc}}" bindtap="preview" mode="aspectFill" class="swiper-image" width="{{img_width}}" height="{{img_height}}" />
+</view>
+<view class="view_description">
+  <view class="title">{{treasurebox.title}}</view>
+  <text class="description">{{treasurebox.description}}</text>
+</view>
+<view class="view_publisher">
+  <image id="publisher_avatar" src="{{treasurebox.user_avatar}}"></image>
+  <view id="publisher">{{treasurebox.user_nickname}}</view>
+</view>
+<view class="center">
+  <view bindtap="openLocation" id="openLocation">
+    <image id="img_openlocation" src="/images/ic_map.png"></image>
+    <text style="vertical-align: middle">查看位置</text>
+  </view>
+</view>
+<view class="center">
+  <text style="vertical-align: middle">开启宝箱</text>
+  <text style="vertical-align: middle">等待宝箱抽奖</text>
+</view>
+<view class="center">
+  <text style="vertical-align: middle">参与人数{{joinnum}}</text>
+</view>
+<!-- 如果status是未开启，则显示参与宝箱抽奖或开启宝箱或等待宝箱抽奖或请接近宝箱 -->
+<!-- 如果status是已开启，则显示中奖名单或取宝者头像，如果用户在中奖者名单中，则显示宝箱宝贝内容 -->
+<!-- 炫耀一下按钮，点击生成中奖分享页，包含用户中奖详情（口令模式宝箱可以追加口令提示和口令等内容），和直达本小程序的二维码 -->
+<!-- 如果是口令模式点击开启宝箱且再宝箱附近则弹出输入口令的窗口，窗口是否包含口令提示？ -->
+<!-- 广告位 -->
+<!-- 分享给朋友，我也要创建宝箱两个按钮 -->

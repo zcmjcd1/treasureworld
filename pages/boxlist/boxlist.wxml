@@ -1,0 +1,3 @@
+<!--pages/boxlist/boxlist.wxml-->
+<text>pages/boxlist/boxlist.wxml</text>
+<!-- 没有宝箱：一个图片加上暂无宝箱提示，有宝箱：分已开启，待开启下上两块，已开起简写，待开启原版卡片 -->

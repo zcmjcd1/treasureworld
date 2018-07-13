@@ -185,7 +185,7 @@ Page({
     var item = e.target.dataset.item;
     if (item) {
       wx.navigateTo({
-        url: '/pages/detail/detail'
+        url: '../detail/detail?item=' + JSON.stringify(item)
       })
     }
   },

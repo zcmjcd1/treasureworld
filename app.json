@@ -4,7 +4,8 @@
     "pages/add_treasure/add_treasure",
     "pages/detail/detail",
     "pages/map/map",
-    "pages/mine/mine"
+    "pages/mine/mine",
+    "pages/boxlist/boxlist"
   ],
   "window":{
     "backgroundTextStyle":"light",
