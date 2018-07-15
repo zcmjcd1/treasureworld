@@ -39,5 +39,15 @@ module.exports = {
       });
 
     })
+  },
+  getUserData: function(objectID,cb){
+    var query = Bmob.Query("_User");
+    query.get(objectID).then(res =>{
+      // console.log(res)
+      cb(res)
+    }).catch(err=>{
+      cb({})
+      console.log(err)
+    });
   }
 }

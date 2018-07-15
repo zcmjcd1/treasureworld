@@ -3,3 +3,56 @@
     padding:3px 10px;
     background: white;
 }
+.view_publisher{
+    padding: 3px 10px;
+    text-align: center;
+    line-height: 1em;
+    background: white;
+    padding-top: 1em;
+}
+.center{
+    text-align: center;
+    background: white;
+}
+#img_openlocation{
+    width: 1.2em;
+    height: 1.2em;
+    vertical-align: middle;
+}
+#publisher_avatar{
+    vertical-align: middle;
+    width: 1.8em;
+    height: 1.8em;
+    border: 1px solid #ebebeb;
+    border-radius: 50%;
+}
+
+#publisher{
+    font-size: 0.8em;
+    color: gray;
+    vertical-align: middle;
+}
+.boxtype{
+  display: flex;
+  flex-direction: row;
+  font-size: 0.6em;
+  color: gray;
+}
+.openboxbtn{
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  background-color: #db5050;
+  color: floralwhite;
+  border-radius: 50%;
+  justify-content: center;
+  width: 6em;
+  height: 6em;
+  vertical-align: middle;
+}
+.center1{
+  width:100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}

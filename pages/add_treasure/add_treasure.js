@@ -329,6 +329,9 @@ Page({
       }else {
         tbox.set("imgsrc","http://bmob-cdn-20364.b0.upaiyun.com/2018/07/11/f323264840156a8b80b9da792c10bb07.jpg")
       }
+      tbox.set("status",0)//0是未开启，1是已经开启
+      tbox.set("joinnum",0)//参与人数
+      tbox.set("joinarray",[])
       tbox.save().then(res => {
         common.showTip("添加成功");
         that.setData({

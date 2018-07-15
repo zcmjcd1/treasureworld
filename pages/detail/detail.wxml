@@ -1,25 +1,32 @@
 <!--pages/detail/detail.wxml-->
-<text>pages/detail/detail.wxml</text>
 <view class="center">
-  <image src="{{treasurebox.imgsrc}}" bindtap="preview" mode="aspectFill" class="swiper-image" width="{{img_width}}" height="{{img_height}}" />
+  <image src="{{treasurebox.imgsrc}}" bindtap="preview" mode="aspectFill" class="swiper-image" style="width: 100%; height: 200px; background-color: #eeeeee;" />
 </view>
 <view class="view_description">
-  <view class="title">{{treasurebox.title}}</view>
-  <text class="description">{{treasurebox.description}}</text>
+  <view class="title">宝箱名称： {{treasurebox.title}}</view>
+  <!-- 宝箱开启条件 -->
+  <view class="boxtype">
+    <text wx:if="{{timehide}}">时间到达 {{timelimit}} 自动开启  </text>
+    <text wx:if="{{peoplehide}}">参与人数到达 {{peoplelimit}} 自动开启  </text>
+    <text wx:if="{{needpass}}">(需要口令)</text>
+    <text wx:if="{{normalbox}}">缘之宝箱（唯一，先到先得）</text>
+  </view>
+  <text class="description">宝箱介绍： {{treasurebox.boxintro}}</text>
 </view>
 <view class="view_publisher">
-  <image id="publisher_avatar" src="{{treasurebox.user_avatar}}"></image>
-  <view id="publisher">{{treasurebox.user_nickname}}</view>
+  <image id="publisher_avatar" src="{{creator_pic}}"></image>
+  <view id="publisher">{{creator_nickname}}</view>
 </view>
 <view class="center">
   <view bindtap="openLocation" id="openLocation">
     <image id="img_openlocation" src="/images/ic_map.png"></image>
-    <text style="vertical-align: middle">查看位置</text>
+    <text style="vertical-align: middle; color: green;">查看位置</text>
   </view>
 </view>
-<view class="center">
-  <text style="vertical-align: middle">开启宝箱</text>
-  <text style="vertical-align: middle">等待宝箱抽奖</text>
+<view class="center1" wx:if="{{status_open}}">
+  <view class="openboxbtn" bindtap="openbox" style="background-color: {{btncolor}}">
+    <text  style="vertical-align: middle">{{join_by_status_button_text}}</text>
+  </view>
 </view>
 <view class="center">
   <text style="vertical-align: middle">参与人数{{joinnum}}</text>
