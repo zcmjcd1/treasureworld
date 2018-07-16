@@ -89,7 +89,7 @@
         <view wx:if="{{passHide}}">
           <view class="mod t-name">
             <text class="key">宝箱口令</text>
-            <input name="treasurepass" type="number" class="input" maxlength="100" placeholder='请输入口令' value="{{treasurepass}}" />
+            <input name="treasurepass" type='text' class="input" maxlength="20" placeholder='请输入口令' value="{{treasurepass}}" />
             <image class="arrow-r" src="/images/arrow-r-0.png"></image>
           </view>
         </view>
@@ -98,7 +98,7 @@
       <view wx:if="{{groupHide}}">
         <view class="mod t-name">
           <text class="key">开宝箱限制设置</text>
-          <input name="peoplenum" type="number" class="input" maxlength="100" placeholder='请输入人数' value="{{peoplenum}}" />
+          <input name="peoplenum" type="number" class="input" maxlength="6" placeholder='请输入人数' value="{{peoplenum}}" />
           <image class="arrow-r" src="/images/arrow-r-0.png"></image>
         </view>
       </view>

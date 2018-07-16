@@ -2,6 +2,8 @@
 
 var API = require('../../api/API.js');
 var Bmob = require('../../lib/Bmob-1.6.0.min.js');
+var getDistance = require('../../utils/distance.js').getDistance;
+const app = getApp()
 
 var treasurebox = null;
 Page({
@@ -10,6 +12,9 @@ Page({
    * 页面的初始数据
    */
   data: {
+    passinput:"",
+    contentHide: false,
+    hidenpassmodal:true,
     status_open: true,
     timehide: false,
     peoplehide: false,
@@ -54,6 +59,10 @@ Page({
         that.setData({
           peoplehide: true,
           peoplelimit: treasurebox.peoplelimit,
+          needpass: true,
+        })
+      } else if (treasurebox.gettype==0&&treasurebox.haspass==1){
+        that.setData({
           needpass: true,
         })
       }
@@ -108,17 +117,14 @@ Page({
     var getstatus = Bmob.Query('TreasureBoxes');
     console.log(treasurebox.objectId)
     var thisbox = getstatus.get(treasurebox.objectId).then(res => {
-      console.log(res)
-      that.setData({
-        status_open: res.status,
-      })
+      console.log(res.status,that.data.status_desc)
       //判断如何操作数据库
-      if (that.data.status_open && !(that.data.status_desc == "wait")) {
+      if (res.status==0 && !(that.data.status_desc == "wait")) {
         console.log("宝箱开启参与表记录一条数据，joinarray添加用户objectid")
         const pointUser = Bmob.Pointer('_User')
         const pointID = pointUser.set(that.data.myid)
         const box = Bmob.Pointer('TreasureBoxes')
-        const boxID = box.ser(treasurebox.objectId)
+        const boxID = box.set(treasurebox.objectId)
         var myjoin = Bmob.Query('JoinOpenBox')
         myjoin.set("joiner", pointID)
         myjoin.set("box", boxID)
@@ -129,11 +135,28 @@ Page({
           var currentdistance = getDistance(locationInfo.latitude, locationInfo.longitude, treasurebox.location.latitude, treasurebox.location.longitude)
           if (currentdistance < 0.1) {
             console.log("距离允许参与")
-            //判断是否抽奖宝箱。。抽奖则变成等待开启等通知，不抽奖则。。。
-            //判断是否有口令，有则弹出口令输入窗口，无则直接改变宝箱状态为已开启，获奖人为当前用户
+            if(treasurebox.haspass==1){
+              //需要口令弹出输入口令窗口
+              that.setData({
+                hidenpassmodal: false,
+              })
+            }
+            //时效抽奖宝箱，先判断当前时间是否小于开启时间，小于则继续插入数据到各表,大于则提示，宝箱已经开启
+            if (treasurebox.haspass == 0 && treasurebox.gettype=="1"){
+
+            }
+            //人数抽奖宝箱，先判断joinnum是否小于peoplelimit，小于则继续插入数据到各表,大于则提示，宝箱已经开启
+            if (treasurebox.haspass == 0 && treasurebox.gettype=="2"){
+
+            }
+            //缘之宝箱直接被开启，展示宝箱宝贝，请求数据库改变宝箱状态为已开启，添加获取人字段数据为当前用户objectid
+            if(treasurebox.haspass==0 && treasurebox.gettype=="0"){
+
+            }
             //joinarray+id joinnum+1 TreasureBoxes表，改变btntext和btnstatustext
           } else {
-            console.log("距离不允许参与")
+            //提示接近宝箱
+            console.log("距离不允许参与,请接近宝箱30米以内")
             return;
           }
         })
@@ -145,6 +168,57 @@ Page({
     });
 
 
+  },
+  passinput: function (e) {
+    var that = this;
+    that.setData({
+      passinput: e.detail.value
+    });
+  },
+  cancelpass: function() {
+    var that = this;
+    that.setData({
+      hidenpassmodal: true,
+    })
+  },
+  confirmpass: function(){
+    var that = this;
+    var passinput = that.data.passinput;
+    //验证passinput是否为空，空则提示输入口令
+    if(passinput==""){
+      console.log("请输入口令")
+      return
+    }
+    //验证口令是否正确,弹出提示窗口，查询是否为抽奖宝箱，以及开启状态，正确得改变joinbtn状态，并记录相应信息到数据库
+    console.log(passinput,"  sdfsdfsdfsdf");
+    if(treasurebox.password==passinput){
+      //查询宝箱状态是否为已经开启
+      var getstatus = Bmob.Query('TreasureBoxes');
+      console.log(treasurebox.objectId)
+      var thisbox = getstatus.get(treasurebox.objectId).then(res => {
+        //未开启and不抽奖，直接获取宝贝，显示宝箱内容，改变宝箱状态为已开启，获取人为当前用户，地图不再显示
+        if(res.status==0&& res.gettype=='0'){
+          that.setData({
+            contentHide: true,
+            status_open: false,
+          })
+        }
+        //未开启and时效抽奖，查看当前时间是否早于timelimit，早于则继续改变btntext为等待开启，记录信息到数据库,晚于则提示参与失败和宝箱当前状态
+        if(res.status==0 && res.gettype=="1"){
+
+        }
+        //未开启and人数抽奖，查看当前人数是否小于peoplelimit，小于则继续改变btntext为等待开启，等于则开启宝箱，改变状态，记录数据发送通知，晚于则提示参与失败和宝箱当前状态
+        if(res.status==0 && res.gettype=="2"){
+
+        }
+      });
+    } else {
+      console.log("提示口令输入错误！！！")
+    }
+
+    that.setData({
+      hidenpassmodal: true,
+    })
   },
   //查看宝箱大图
   preview: function(e) {
