@@ -5,6 +5,7 @@
     "pages/detail/detail",
     "pages/map/map",
     "pages/mine/mine",
+    "pages/mine/feedback/feedback",
     "pages/boxlist/boxlist"
   ],
   "window":{

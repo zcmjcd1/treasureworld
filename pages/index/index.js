@@ -75,7 +75,7 @@ Page({
   markertap(e) {
     console.log(e);
     //
-    var treasurebox = treasureboxMap[e.markerId];
+    var treasurebox = treasuresMap[e.markerId];
     this.setData({
       current: treasurebox.index
     })
@@ -191,6 +191,11 @@ Page({
   },
   currentChange: function (e) {
     var current = e.detail.current;
+    console.log(current,markers.length)
+    if(current==markers.length-1 && current<=99){
+      //loadmore boxes
+      this.loadMore()
+    }
     //console.log('current',current);
     //console.log('data',markers[current].data);
     var treasurebox = markers[current].data;
@@ -206,6 +211,22 @@ Page({
     //console.log('currentChangeeeeeeeeeeeeeeeeeeeeeeeeee',markers);
     this.setData({
       markers: markers
+    })
+  },
+  loadMore: function () {
+    if (!mIsmore) return;
+    wx.showNavigationBarLoading();
+    var that = this;
+    API.getTreasureBoxesByPage(mPage + 1, PAGE_SIZE, (treasureboxes) => {
+      console.log('loadMore', treasureboxes);
+      mIsmore = (treasureboxes.length > 0);
+      mPage++;
+      mTreasureboxList = mGourmetList.concat(treasureboxes);
+      that.setData({
+        treasures: mTreasureboxList,
+        ismore: mIsmore
+      })
+      wx.hideNavigationBarLoading()
     })
   }
 })
