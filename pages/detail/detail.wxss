@@ -1,4 +1,5 @@
 /* pages/detail/detail.wxss */
+@import '/style/weui.wxss';
 .view_description{
     padding:3px 10px;
     background: white;

@@ -1,4 +1,5 @@
 <!--pages/detail/detail.wxml-->
+<view class="weui-toptips weui-toptips_warn" wx:if="{{showTopTips}}">{{TopTips}}</view>
 <view class="center">
   <image src="{{treasurebox.imgsrc}}" bindtap="preview" mode="aspectFill" class="swiper-image" style="width: 100%; height: 200px; background-color: #eeeeee;" />
 </view>
