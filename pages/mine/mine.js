@@ -43,12 +43,15 @@ Page({
     })
     //查询creator是当前用户的宝箱个数
     var getcreatnum = Bmob.Query('TreasureBoxes');
-    getcreatnum.statTo("where", '{"creator":{"$inQuery":{"where":{"objectId":"'+current.objectId+'"},"className":"_User"}}}');
+    // getcreatnum.statTo("where", '{"creator":{"$inQuery":{"where":{"objectId":"'+current.objectId+'"},"className":"_User"}}}');
+    const pointer = Bmob.Pointer('_User')
+    const poiID = pointer.set(current.objectId)
+    getcreatnum.equalTo("creator", "==", poiID)
     getcreatnum.count().then(res =>{
       that.setData({
         createboxnum: res,
       })
-      // console.log(res, "asdfasdfeeeee")
+      console.log(res, "asdfasdfeeeee")
     })
     //查询winner是当前用户的宝箱个数
     var getgainnum = Bmob.Query('TreasureBoxes');
@@ -60,8 +63,11 @@ Page({
       // console.log(res, "asdfasdfeeeee")
     })
     //查询所有与用户相关的宝箱个数
-    var getjoinnum = Bmob.Query('JoinOpenBox');  
-    getjoinnum.statTo("where", '{"joiner":{"$inQuery":{"where":{"objectId":"' + current.objectId + '"},"className":"_User"}}}');
+    var getjoinnum = Bmob.Query('TreasureBoxes');  
+    // getjoinnum.statTo("where", '{"joiner":{"$inQuery":{"where":{"objectId":"' + current.objectId + '"},"className":"_User"}}}');
+    const jquery = getjoinnum.containedIn("joinarray", [current.objectId]);
+    const cquery = getjoinnum.equalTo("creator", "==", poiID)
+    getjoinnum.or(jquery, cquery);
     getjoinnum.count().then(res => {
       that.setData({
         allboxnum: res,
