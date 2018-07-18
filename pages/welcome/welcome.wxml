@@ -1,0 +1,4 @@
+<!--pages/welcome/welcome.wxml-->
+<image src="../../images/welcome.jpg" bindtap="preview" mode="aspectFill" class="swiper-image" style="width: 100%; height: 100vh; background-color: #eeeeee;">
+  <button open-type="getUserInfo" lang="zh_CN" bindgetuserinfo="onGotUserInfo" style="position: fixed; bottom: 20px;width:100% ">立即体验</button>
+</image>

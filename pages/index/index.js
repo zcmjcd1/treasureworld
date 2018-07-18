@@ -181,6 +181,12 @@ Page({
       url: '/pages/mine/mine'
     })
   },
+  /**
+   * 生命周期函数--监听页面显示
+   */
+  onShow: function () {
+    this.onLoad();
+  },
   gotoDetail: function (e) {
     var item = e.target.dataset.item;
     if (item) {

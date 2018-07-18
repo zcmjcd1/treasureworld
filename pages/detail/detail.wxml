@@ -38,7 +38,7 @@
 
 <modal hidden="{{hidenpassmodal}}" title="宝箱口令" confirm-text="确定" cancel-text="取消" bindcancel="cancelpass" bindconfirm="confirmpass">
     <text style="color: blue">口令提示：{{passnote}}</text>
-    <input bindinput="passinput" type='text'placeholder="请输入口令" auto-focus/>
+     <input bindinput="passinput" type='text'placeholder="请输入口令"/> 
 </modal>
 <!-- 如果status是未开启，则显示参与宝箱抽奖或开启宝箱或等待宝箱抽奖或请接近宝箱 -->
 <!-- 如果status是已开启，则显示中奖名单或取宝者头像，如果用户在中奖者名单中，则显示宝箱宝贝内容 -->

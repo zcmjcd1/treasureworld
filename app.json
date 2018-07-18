@@ -1,5 +1,6 @@
 {
   "pages":[
+    "pages/welcome/welcome",
     "pages/index/index",
     "pages/add_treasure/add_treasure",
     "pages/detail/detail",
