@@ -1,1 +1,35 @@
 /* pages/boxlist/boxlist.wxss */
+@import '/style/zanui.wxss';
+.listt{
+  margin-top: 0px;
+}
+.listtitle{
+  font-size: 18px;
+  font-weight: 400;
+}
+.list_item{
+    background: white;
+    margin-bottom: 1em;
+    padding: 0.5em 0em 0.5em 0em;
+}
+.img{
+    width: 100%;
+    height: 12em;
+}
+.boxtype{
+  display: flex;
+  flex-direction: row;
+  font-size: 0.6em;
+  color: gray;
+}
+.rowdirection{
+  display: flex;
+  flex-direction: row;
+}
+.updateday{
+  position:fixed;
+  right: 5px;
+}
+.oldname{
+  margin-left: 7px;
+}

@@ -111,7 +111,7 @@ Page({
         })
       }
       that.setData({
-        joinnum:treasurebox.joinnum
+        joinnum: treasurebox.joinnum
       })
       API.getUserData(treasurebox.creator.objectId, (res) => {
         console.log(res);
@@ -138,19 +138,20 @@ Page({
       console.log(res.status, that.data.status_desc)
       //判断如何操作数据库
       if (res.status == 0 && !(that.data.status_desc == "wait")) {
-        console.log("宝箱开启参与表记录一条数据，joinarray添加用户objectid")
-        const pointUser = Bmob.Pointer('_User')
-        const pointID = pointUser.set(that.data.myid)
-        const box = Bmob.Pointer('TreasureBoxes')
-        const boxID = box.set(treasurebox.objectId)
-        var myjoin = Bmob.Query('JoinOpenBox')
-        myjoin.set("joiner", pointID)
-        myjoin.set("box", boxID)
-        myjoin.save()
+        // console.log("宝箱开启参与表记录一条数据，joinarray添加用户objectid")
+        // const pointUser = Bmob.Pointer('_User')
+        // const pointID = pointUser.set(that.data.myid)
+        // const box = Bmob.Pointer('TreasureBoxes')
+        // const boxID = box.set(treasurebox.objectId)
+        // var myjoin = Bmob.Query('JoinOpenBox')
+        // myjoin.set("joiner", pointID)
+        // myjoin.set("box", boxID)
+        // myjoin.save()
         //判断位置
         app.getLocationInfo(locationInfo => {
           var query = Bmob.Query("TreasureBoxes");
           var currentdistance = getDistance(locationInfo.latitude, locationInfo.longitude, treasurebox.location.latitude, treasurebox.location.longitude)
+          console.log(currentdistance);
           if (currentdistance < 0.1) {
             console.log("距离允许参与")
             if (treasurebox.haspass == 1) {
@@ -168,17 +169,123 @@ Page({
               var oDate = new Date(str);
               if (nowtime > oDate) {
                 console.log("可以参与")
+                //插入数据
+                //joinarray
+                res.add("joinarray", [that.data.myid]);
+                //joinnum
+                res.increment("joinnum");
+                res.save().then(res2 => {
+                  console.log("修改box数据成功")
+                  console.log(res)
+                  //参与表添加数据
+                  const pointUser = Bmob.Pointer('_User')
+                  const pointID = pointUser.set(that.data.myid)
+                  const box = Bmob.Pointer('TreasureBoxes')
+                  const boxID = box.set(treasurebox.objectId)
+                  var myjoin = Bmob.Query('JoinOpenBox')
+                  myjoin.set("joiner", pointID)
+                  myjoin.set("box", boxID)
+                  myjoin.save();
+                  that.setData({
+                    join_by_status_button_text: '...等待开启',
+                    joinnum: res.joinnum,
+                  })
+                }).catch(err => {
+                  console.log("修改box数据失败")
+                  console.log(err)
+                })
               } else {
+                this.setData({
+                  showTopTips: true,
+                  TopTips: '宝箱已开启，不可参与'
+                })
                 console.log("宝箱已开启，不可参与")
               }
             }
             //人数抽奖宝箱，先判断joinnum是否小于peoplelimit，小于则继续插入数据到各表,大于则提示，宝箱已经开启
             if (treasurebox.haspass == 0 && treasurebox.gettype == "2") {
+              if (res.joinnum <= res.peoplelimit) {
+                console.log("可以参与人数抽奖")
+                //插入数据
+                res.add("joinarray", [that.data.myid]);
+                res.increment("joinnum");
+                if (res.joinnum == res.peoplelimit) {
+                  //getrandom in joinarray and 发送开启结果通知到所有参与者
+                  var winnerindex = Math.floor((Math.random() * res.joinarray.length));
+                  //status
+                  res.set("status", 1);
+                  //winner
+                  res.set("winner", res.joinarray[winnerindex]);
+                }
+                res.save().then(res2 => {
+                  console.log("修改box数据成功")
+                  console.log(res)
+                  //参与表添加数据
+                  const pointUser = Bmob.Pointer('_User')
+                  const pointID = pointUser.set(that.data.myid)
+                  const box = Bmob.Pointer('TreasureBoxes')
+                  const boxID = box.set(treasurebox.objectId)
+                  var myjoin = Bmob.Query('JoinOpenBox')
+                  myjoin.set("joiner", pointID)
+                  myjoin.set("box", boxID)
+                  myjoin.save().then(res3 => {
+                    //数据更新成功则发送通知给所有参与者0000000000000000000000000000000000000000000000000000000
+                    this.setData({
+                      showTopTips: true,
+                      TopTips: '宝箱已开启，人数到达，发送通知'
+                    })
+                  }).catch(err => {
+                    console.log("更新数据失败")
+                  });
+                  that.setData({
+                    join_by_status_button_text: '...等待开启',
+                    joinnum: res.joinnum,
+                  })
 
+                }).catch(err => {
+                  console.log("修改box数据失败")
+                  console.log(err)
+                })
+
+              } else {
+                this.setData({
+                  showTopTips: true,
+                  TopTips: '宝箱已开启，不可参与(人数已满)'
+                })
+                console.log("宝箱已开启，不可参与")
+              }
             }
             //缘之宝箱直接被开启，展示宝箱宝贝，请求数据库改变宝箱状态为已开启，添加获取人字段数据为当前用户objectid
             if (treasurebox.haspass == 0 && treasurebox.gettype == "0") {
-
+              //status
+              res.set("status", 1);
+              //winner
+              res.set("winner", that.data.myid);
+              //joinarray
+              res.add("joinarray", [that.data.myid]);
+              //joinnum
+              res.increment("joinnum");
+              res.save().then(res2 => {
+                console.log("修改box数据成功")
+                console.log(res)
+                //参与表添加数据
+                const pointUser = Bmob.Pointer('_User')
+                const pointID = pointUser.set(that.data.myid)
+                const box = Bmob.Pointer('TreasureBoxes')
+                const boxID = box.set(treasurebox.objectId)
+                var myjoin = Bmob.Query('JoinOpenBox')
+                myjoin.set("joiner", pointID)
+                myjoin.set("box", boxID)
+                myjoin.save();
+                that.setData({
+                  contentHide: true,
+                  status_open: false,
+                  joinnum: res.joinnum,
+                })
+              }).catch(err => {
+                console.log("修改box数据失败")
+                console.log(err)
+              })
             }
             //joinarray+id joinnum+1 TreasureBoxes表，改变btntext和btnstatustext
           } else {
@@ -198,7 +305,7 @@ Page({
       console.log("加入失败");
     });
 
-    setTimeout(function () {
+    setTimeout(function() {
       that.setData({
         showTopTips: false
       });
@@ -226,7 +333,7 @@ Page({
         showTopTips: true,
         TopTips: '请输入口令'
       });
-      setTimeout(function () {
+      setTimeout(function() {
         that.setData({
           showTopTips: false
         });
@@ -276,20 +383,101 @@ Page({
         }
         //未开启and时效抽奖，查看当前时间是否早于timelimit，早于则继续改变btntext为等待开启，记录信息到数据库,晚于则提示参与失败和宝箱当前状态
         if (res.status == 0 && res.gettype == "1") {
-          var nowtime= new Date()
-          var limittime=  res.timelimit.iso
+          var nowtime = new Date()
+          var limittime = res.timelimit.iso
           var str = limittime.toString();
           str = str.replace("/-/g", "/");
           var oDate = new Date(str);
-          if(nowtime<oDate){
+          if (nowtime < oDate) {
             console.log("可以参与")
-          }else {
+            //status
+            // res.set("status", 1);
+            //winner
+            // res.set("winner", that.data.myid);
+            //joinarray
+            res.add("joinarray", [that.data.myid]);
+            //joinnum
+            res.increment("joinnum");
+            res.save().then(res2 => {
+              console.log("修改box数据成功")
+              console.log(res)
+              //参与表添加数据
+              const pointUser = Bmob.Pointer('_User')
+              const pointID = pointUser.set(that.data.myid)
+              const box = Bmob.Pointer('TreasureBoxes')
+              const boxID = box.set(treasurebox.objectId)
+              var myjoin = Bmob.Query('JoinOpenBox')
+              myjoin.set("joiner", pointID)
+              myjoin.set("box", boxID)
+              myjoin.save();
+              that.setData({
+                join_by_status_button_text: '...等待开启',
+                joinnum: res.joinnum,
+              })
+            }).catch(err => {
+              console.log("修改box数据失败")
+              console.log(err)
+            })
+          } else {
+            this.setData({
+              showTopTips: true,
+              TopTips: '宝箱已开启，不可参与（时间已过）'
+            })
             console.log("宝箱已开启，不可参与")
           }
         }
         //未开启and人数抽奖，查看当前人数是否小于peoplelimit，小于则继续改变btntext为等待开启，等于则开启宝箱，改变状态，记录数据发送通知，晚于则提示参与失败和宝箱当前状态
         if (res.status == 0 && res.gettype == "2") {
+          if (res.joinnum <= res.peoplelimit) {
+            console.log("可以参与人数抽奖")
+            //插入数据
+            res.add("joinarray", [that.data.myid]);
+            res.increment("joinnum");
+            if (res.joinnum == res.peoplelimit) {
+              //getrandom in joinarray and 发送开启结果通知到所有参与者
+              var winnerindex = Math.floor((Math.random() * res.joinarray.length));
+              //status
+              res.set("status", 1);
+              //winner
+              res.set("winner", res.joinarray[winnerindex]);
+            }
+            res.save().then(res2 => {
+              console.log("修改box数据成功")
+              console.log(res)
+              //参与表添加数据
+              const pointUser = Bmob.Pointer('_User')
+              const pointID = pointUser.set(that.data.myid)
+              const box = Bmob.Pointer('TreasureBoxes')
+              const boxID = box.set(treasurebox.objectId)
+              var myjoin = Bmob.Query('JoinOpenBox')
+              myjoin.set("joiner", pointID)
+              myjoin.set("box", boxID)
+              myjoin.save().then(res3 =>{
+                //数据更新成功则发送通知给所有参与者0000000000000000000000000000000000000000000000000000000
+                this.setData({
+                  showTopTips: true,
+                  TopTips: '宝箱已开启，人数到达，发送通知'
+                })
+              }).catch(err =>{
+                console.log("更新数据失败")
+              });
+              that.setData({
+                join_by_status_button_text: '...等待开启',
+                joinnum: res.joinnum,
+              })
+              
+            }).catch(err => {
+              console.log("修改box数据失败")
+              console.log(err)
+            })
 
+          } else {
+            this.setData({
+              showTopTips: true,
+              TopTips: '宝箱已开启，不可参与(人数已满)'
+            })
+            console.log("宝箱已开启，不可参与")
+          }
         }
       });
     } else {
@@ -299,7 +487,7 @@ Page({
       });
       console.log("口令输入错误！！！")
     }
-    setTimeout(function () {
+    setTimeout(function() {
       that.setData({
         showTopTips: false
       });

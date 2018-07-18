@@ -1,4 +1,6 @@
 // pages/mine/mine.js
+var Bmob = require('../../lib/Bmob-1.6.0.min.js');
+
 Page({
 
   /**
@@ -6,9 +8,28 @@ Page({
    */
   data: {
     userInfo: {},
-    loading: true
+    loading: true,
+    allboxnum: 0,
+    createboxnum: 0,
+    ownboxnum: 0,
   },
+  toallboxlist: function(){
+    wx.navigateTo({
+      url: '../boxlist/boxlist?type=all&user=' + this.data.userInfo.objectId + '&num=' + this.data.allboxnum,
+    })
+  },
+  tocreateboxlist: function () {
+    wx.navigateTo({
+      url: '../boxlist/boxlist?type=create&user=' + this.data.userInfo.objectId + '&num=' + this.data.createboxnum,
+    })
 
+  },
+  toownboxlist: function () {
+    wx.navigateTo({
+      url: '../boxlist/boxlist?type=own&user=' + this.data.userInfo.objectId+'&num='+this.data.ownboxnum,
+    })
+
+  },
   /**
    * 生命周期函数--监听页面加载
    */
@@ -19,7 +40,34 @@ Page({
     console.log(current)
     that.setData({
       userInfo: current
-    })  
+    })
+    //查询creator是当前用户的宝箱个数
+    var getcreatnum = Bmob.Query('TreasureBoxes');
+    getcreatnum.statTo("where", '{"creator":{"$inQuery":{"where":{"objectId":"'+current.objectId+'"},"className":"_User"}}}');
+    getcreatnum.count().then(res =>{
+      that.setData({
+        createboxnum: res,
+      })
+      // console.log(res, "asdfasdfeeeee")
+    })
+    //查询winner是当前用户的宝箱个数
+    var getgainnum = Bmob.Query('TreasureBoxes');
+    getgainnum.equalTo("winner", "==", current.objectId);
+    getgainnum.count().then(res => {
+      that.setData({
+        ownboxnum: res,
+      })
+      // console.log(res, "asdfasdfeeeee")
+    })
+    //查询所有与用户相关的宝箱个数
+    var getjoinnum = Bmob.Query('JoinOpenBox');  
+    getjoinnum.statTo("where", '{"joiner":{"$inQuery":{"where":{"objectId":"' + current.objectId + '"},"className":"_User"}}}');
+    getjoinnum.count().then(res => {
+      that.setData({
+        allboxnum: res,
+      })
+      console.log(res, "asdfasdfeeeee")
+    })
   },
 
   /**

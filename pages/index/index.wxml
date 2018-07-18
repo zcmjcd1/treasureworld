@@ -2,15 +2,21 @@
 <view class="main">
 
   <map id="map" longitude="{{longitude}}" latitude="{{latitude}}" scale="19" bindcontroltap="controltap" markers="{{markers}}" bindmarkertap="markertap" polyline="{{polyline}}" bindregionchange="regionchange" show-location style="width:{{windowWidth}}px;height:{{windowHeight}}px">
-    <cover-view class="add_treasure" bindtap="add_treasure">
-      <cover-image class="img2" src="../../images/加号.png" />
-      <cover-image class="img" src="../../images/宝箱.png" />
+    <cover-view class="add_treasurew">
+      <cover-view class="add_treasure" bindtap="add_treasure">
+        <cover-image class="img2" src="../../images/加号.png" />
+        <cover-image class="img" src="../../images/宝箱.png" />
+      </cover-view>
     </cover-view>
-    <cover-view class="mine" bindtap="mine">
-      <cover-image class="img" src="../../images/mine_grey.png" />
+    <cover-view class="minew">
+      <cover-view class="mine" bindtap="mine">
+        <cover-image class="img" src="../../images/mine_grey.png" />
+      </cover-view>
     </cover-view>
-    <cover-view class="loc" bindtap="loc">
-      <cover-image class="img" src="../../images/位置.png" />
+    <cover-view class="locw">
+      <cover-view class="loc" bindtap="loc">
+        <cover-image class="img" src="../../images/位置.png" />
+      </cover-view>
     </cover-view>
     <cover-view class="centerloc" bindtap="centerloc">
       <cover-image class="img" src="../../images/icon_center.png" />
@@ -22,12 +28,12 @@
     <swiper current="{{current}}" style="width: 100%; min-height:230px;" bindchange="currentChange">
       <block wx:for="{{markers}}" wx:key="id">
         <swiper-item bindtap="gotoDetail" data-item="{{item.data}}">
-           <view style="padding: 0px 10px;" data-item="{{item.data}}">
+          <view style="padding: 0px 10px;" data-item="{{item.data}}">
             <text data-item="{{item.data}}" class="itemtext_title">{{item.data.title}}</text>
             <text data-item="{{item.data}}" class="sub_title">离我{{item.data.distance}}km</text>
             <image data-item="{{item.data}}" style="width: 100%; " mode="aspectFill" src="{{item.data.imgsrc}}"></image>
             <text data-item="{{item.data}}" class="address">{{item.data.address}}</text>
-          </view> 
+          </view>
         </swiper-item>
       </block>
     </swiper>

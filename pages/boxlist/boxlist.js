@@ -1,18 +1,68 @@
 // pages/boxlist/boxlist.js
+var Bmob = require('../../lib/Bmob-1.6.0.min.js');
+var API = require('../../api/API.js');
+var PAGE_SIZE = 5;
+function loadFirstPage(that,options) {
+  switch (options.type) {
+    case 'all':
+      console.log('1')
+      API.getTreasureBoxesAllByPage(options.user, 1, PAGE_SIZE, (res) => {
+        console.log(res)
+      })
+      break;
+    case 'create':
+      console.log('2')
+      API.getTreasureBoxesCreateByPage(options.user, 1, PAGE_SIZE, (res) => {
+        console.log(res)
+      })
+      break;
+    case 'own':
+      console.log('3')
+      API.getTreasureBoxesOwnByPage(options.user, 1, PAGE_SIZE, (res) => {
+        console.log(res)
+        console.log(res.length,options.num)
+        if(res.length>0){
+          if (options.num <= 5) {
+            that.setData({
+              datalength: res.length,
+            })
+          } else {
+            that.setData({
+              hasmore: true,
+            })
+          }
+          that.setData({
+            oldboxes: res,
+            nobox: false,
+            hasoldbox: true,
+          })
+        }
+      })
+      break;
+  }
+}
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-  
+    datalength:0,
+    hasmore: false,
+    nobox:true,
+    haswaitbox:false,
+    hasoldbox:false,
+    waitboxes:[],
+    oldboxes:[],
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-  
+    var that = this;
+    console.log('options', options);
+    loadFirstPage(that,options);
   },
 
   /**
