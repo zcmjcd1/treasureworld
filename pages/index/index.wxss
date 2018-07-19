@@ -3,8 +3,8 @@
 #swiper_area {
   background: white;
   /* margin-top: 0.2em; */
-  padding-top: 10px;
-  padding-bottom: 5px;
+  /* padding-top: 10px; */
+  /* padding-bottom: 5px; */
    /* display: flex;  */
    align-items: center; 
     justify-content: center;  

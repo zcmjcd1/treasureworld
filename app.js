@@ -10,7 +10,8 @@ App({
     Bmob.User.auth().then(res => {
       console.log(res);
       console.log("一键登录成功");
-      var userData = { nickName: res.nickName, objectId: res.objectId, openid: res.openid, userPic: res.userPic, username:                 res.username };
+      console.log(res.authData.weapp.openid)
+      var userData = { nickName: res.nickName, objectId: res.objectId, openid: res.authData.weapp.openid, userPic: res.userPic, username:                 res.username };
       wx.setStorageSync('userData', userData);
       wx.setStorageSync('openid', res.openid)
     }).catch(err => {

@@ -1,7 +1,7 @@
 <!--index.wxml-->
 <view class="main">
 
-  <map id="map" longitude="{{longitude}}" latitude="{{latitude}}" scale="19" bindcontroltap="controltap" markers="{{markers}}" bindmarkertap="markertap" polyline="{{polyline}}" bindregionchange="regionchange" show-location style="width:{{windowWidth}}px;height:{{windowHeight}}px">
+  <map id="map" longitude="{{longitude}}" latitude="{{latitude}}" scale="19" bindcontroltap="controltap" markers="{{markers}}" bindmarkertap="markertap" polyline="{{polyline}}" bindregionchange="regionchange" show-location style="width:100%;height: 61.8vh;">
     <cover-view class="add_treasurew">
       <cover-view class="add_treasure" bindtap="add_treasure">
         <cover-image class="img2" src="../../images/加号.png" />
@@ -25,7 +25,7 @@
   <!-- <view class="tips">请左右滑动下面切换藏宝点↓↓↓</view> -->
   <view id="swiper_area">
     <!-- <image data-item="{{item.data}}" style="width: 100%; " mode="widthFix" src="http://bmob-cdn-20364.b0.upaiyun.com/2018/07/11/f323264840156a8b80b9da792c10bb07.jpg"></image> -->
-    <swiper current="{{current}}" style="width: 100%; min-height:230px;" bindchange="currentChange">
+    <swiper current="{{current}}" style="width: 100%; height:38.2vh;" bindchange="currentChange">
       <block wx:for="{{markers}}" wx:key="id">
         <swiper-item bindtap="gotoDetail" data-item="{{item.data}}">
           <view style="padding: 0px 10px;" data-item="{{item.data}}">

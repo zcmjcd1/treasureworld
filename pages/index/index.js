@@ -221,7 +221,7 @@ Page({
       console.log('loadMore', treasureboxes);
       mIsmore = (treasureboxes.length > 0);
       mPage++;
-      mTreasureboxList = mGourmetList.concat(treasureboxes);
+      mTreasureboxList = mTreasureboxList.concat(treasureboxes);
       that.setData({
         treasures: mTreasureboxList,
         ismore: mIsmore
