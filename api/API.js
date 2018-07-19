@@ -21,7 +21,7 @@ module.exports = {
       // 每页个数
       query.skip(pagesize * (page - 1))
       //隐藏的去掉
-      // query.notEqualTo("hide", true);
+      query.equalTo("status","<", 1);
       // 查询
       query.find().then(res => {
         console.log(res)

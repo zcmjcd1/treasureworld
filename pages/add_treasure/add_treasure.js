@@ -248,6 +248,8 @@ Page({
     var treasurepass = e.detail.value.treasurepass;
     var passIndex = this.data.passIndex;
     var checkDate = new Date();
+    var formid = e.detail.formId;
+    console.log(formid);
     //先进行表单非空验证
     if (title == "") {
       this.setData({
@@ -309,13 +311,14 @@ Page({
       tbox.set("boxintro",treasureIntro)
       tbox.set("boxcontent",treasureContent)
       tbox.set("gettype",typeIndex)//0不抽奖1时效抽奖2人数抽奖
+      tbox.set("formid",formid)
       console.log(timelimit)
       if(typeIndex=='1'){
-        let timedata = {
-          "__type": "Date",
-          "iso": timelimit
-        }
-        tbox.set("timelimit", timedata)
+        // let timedata = {
+        //   "__type": "Date",
+        //   "iso": timelimit
+        // }
+        tbox.set("timelimit", timelimit )
       }else if (typeIndex=='2'){
         tbox.set("peoplelimit",peoplelimit)
       }
@@ -338,7 +341,7 @@ Page({
           isLoading: false,
           isdisabled: true
         })
-        wx.navigateTo({
+        wx.redirectTo({
           url: '../index/index'
         })
         // getList(that);

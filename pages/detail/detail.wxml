@@ -3,6 +3,7 @@
 <view class="center">
   <image src="{{treasurebox.imgsrc}}" bindtap="preview" mode="aspectFill" class="swiper-image" style="width: 100%; height: 200px; background-color: #eeeeee;" />
 </view>
+<form bindsubmit="openbox" report-submit='true'>
 <view class="view_description">
   <view class="title">宝箱名称： {{treasurebox.title}}</view>
   <!-- 宝箱开启条件 -->
@@ -25,9 +26,9 @@
   </view>
 </view>
 <view class="center1" wx:if="{{status_open}}">
-  <view class="openboxbtn" bindtap="openbox" style="background-color: {{btncolor}}">
+  <button class="openboxbtn" formType="submit" style="background-color: {{btncolor}}">
     <text  style="vertical-align: middle">{{join_by_status_button_text}}</text>
-  </view>
+  </button>
 </view>
 <view wx:if="{{contentHide}}">
   <text>宝箱宝贝： {{treasurebox.boxcontent}}</text>
@@ -38,8 +39,9 @@
 
 <modal hidden="{{hidenpassmodal}}" title="宝箱口令" confirm-text="确定" cancel-text="取消" bindcancel="cancelpass" bindconfirm="confirmpass">
     <text style="color: blue">口令提示：{{passnote}}</text>
-     <input bindinput="passinput" type='text'placeholder="请输入口令"/> 
+    <input bindinput="passinput" type='text'placeholder="请输入口令"/>
 </modal>
+</form>
 <!-- 如果status是未开启，则显示参与宝箱抽奖或开启宝箱或等待宝箱抽奖或请接近宝箱 -->
 <!-- 如果status是已开启，则显示中奖名单或取宝者头像，如果用户在中奖者名单中，则显示宝箱宝贝内容 -->
 <!-- 炫耀一下按钮，点击生成中奖分享页，包含用户中奖详情（口令模式宝箱可以追加口令提示和口令等内容），和直达本小程序的二维码 -->

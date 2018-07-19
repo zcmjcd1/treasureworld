@@ -14,7 +14,7 @@
       <view class="title">宝箱名称： {{item.title}}   </view>
       <!-- 宝箱开启条件 -->
       <view class="boxtype">
-        <text wx:if="{{item.timehide}}">时间到达 {{item.timelimit.iso}} 自动开启  </text>
+        <text wx:if="{{item.timehide}}">时间到达 {{item.timelimit}} 自动开启  </text>
         <text wx:if="{{item.peoplehide}}">参与人数到达 {{item.peoplelimit}} 自动开启  </text>
         <text wx:if="{{item.needpass}}">(需要口令)</text>
         <text wx:if="{{item.normalbox}}">缘之宝箱（唯一，先到先得）</text>
@@ -26,10 +26,10 @@
 <view wx:if="{{hasoldbox}}">
 <view class="weui-cells__title listtitle">已开启</view>
 <view  id="oldboxlist">
-  <view wx:for="{{oldboxes}}" wx:key="objectId">
-    <view class="list_item rowdirection weui-cell weui-cell_access" bindtap="gotoDetail" data-item="{{item}}">
-      <view class="title oldname">  宝箱名称：{{item.title}}</view>
-      <view class="updateday weui-cell__ft weui-cell__ft_in-access">{{item.endday}}</view>
+  <view bindtap="gotoDetail" wx:for="{{oldboxes}}" wx:key="objectId" >
+    <view class="list_item rowdirection weui-cell weui-cell_access"  data-item="{{item}}">
+      <view class="title oldname" data-item="{{item}}">  宝箱名称：{{item.title}}</view>
+      <view class="updateday weui-cell__ft weui-cell__ft_in-access" data-item="{{item}}">{{item.endday}}</view>
     </view>
   </view>
 </view>

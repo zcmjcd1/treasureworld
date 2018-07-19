@@ -242,6 +242,7 @@ Page({
     oldboxes:[],
   },
   gotoDetail: function (e) {
+    console.log(e)
     var item = e.target.dataset.item;
     if (item) {
       wx.navigateTo({

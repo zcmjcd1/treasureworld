@@ -6,7 +6,6 @@ var Bmob = require('lib/Bmob-1.6.0.min.js');
 App({
   onLaunch: function () {
     console.log("onlaunch")
-    
   },
   getLocationInfo: function (cb) {
     var that = this;

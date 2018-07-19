@@ -1,7 +1,7 @@
 <!--pages/add_treasure/add_treasure.wxml-->
 
 <view class="add-page">
-  <form bindsubmit="submitForm">
+  <form bindsubmit="submitForm" report-submit='true'>
     <view class="weui-toptips weui-toptips_warn" wx:if="{{showTopTips}}">{{TopTips}}</view>
     <image style="width: 100%; height: 200px; background-color: #eeeeee;" mode="aspectFill" src="{{imgsrc}}">
     </image>
