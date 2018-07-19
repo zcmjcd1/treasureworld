@@ -220,6 +220,7 @@ Page({
             src: obj.url,
             imgsrc: obj.url
           })
+          console.log(obj.url,)
           wx.hideNavigationBarLoading();
           common.showTip("上传成功", "success");
         })
@@ -327,8 +328,8 @@ Page({
         tbox.set("passnote",passnote)
         tbox.set("password",treasurepass)
       }
-      if(that.data.isSrc){
-        tbox.set("imgsrc",that.data.imgSrc)
+      if (that.data.isSrc){
+        tbox.set("imgsrc",that.data.imgsrc)
       }else {
         tbox.set("imgsrc","http://bmob-cdn-20364.b0.upaiyun.com/2018/07/11/f323264840156a8b80b9da792c10bb07.jpg")
       }
@@ -341,8 +342,8 @@ Page({
           isLoading: false,
           isdisabled: true
         })
-        wx.redirectTo({
-          url: '../index/index'
+        wx.navigateBack({
+          url: '/pages/index/index',
         })
         // getList(that);
       }).catch(err => {

@@ -33,12 +33,12 @@
 <view wx:if="{{contentHide}}">
   <text>宝箱宝贝： {{treasurebox.boxcontent}}</text>
 </view>
-<view class="center">
+<view class="center" wx:if="{{false}}">
   <text style="vertical-align: middle">参与人数{{joinnum}}</text>
 </view>
 
 <modal hidden="{{hidenpassmodal}}" title="宝箱口令" confirm-text="确定" cancel-text="取消" bindcancel="cancelpass" bindconfirm="confirmpass">
-    <text style="color: blue">口令提示：{{passnote}}</text>
+    <text style="color: blue">口令提示：{{treasurebox.passnote}}</text>
     <input bindinput="passinput" type='text'placeholder="请输入口令"/>
 </modal>
 </form>

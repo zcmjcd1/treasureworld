@@ -26,6 +26,11 @@ function loadFirstPage(that) {
   API.getTreasureBoxesByPage(1, PAGE_SIZE, (treasureboxes) => {
     console.log('loadFirstPage', treasureboxes);
     // setLoading(false);
+    if (treasureboxes.length<1){
+      that.setData({
+        hideswiper:false,
+      })
+    }
     mTreasureboxList = treasureboxes;
     mPage = 1;
     mIsmore = true;
@@ -61,16 +66,23 @@ function loadFirstPage(that) {
       })
     }
   })
+  that.setData({
+    loading:true,
+  })
+  wx.stopPullDownRefresh(); 
+  wx.hideNavigationBarLoading();
 }
 Page({
   data: {
     markers: markers, 
     treasures: mTreasureboxList,
     ismore: mIsmore,
+    hideswiper:true,
     polyline: [],
     controls: [{}],
     longitude: 113.298569,
-    latitude: 23.095207
+    latitude: 23.095207,
+    loading: false,
   },
   markertap(e) {
     console.log(e);
@@ -91,6 +103,24 @@ Page({
   },
   onLoad: function () {
     var that = this;
+    treasuresMap = {};
+    markers = [];
+    mIsmore = false;
+    initFlag = false;
+    PAGE_SIZE = 50;
+    mPage = 1;
+    mTreasureboxList = [];
+    that.setData({
+      markers: markers,
+      treasures: mTreasureboxList,
+      ismore: mIsmore,
+      polyline: [],
+      controls: [{}],
+      longitude: 113.298569,
+      latitude: 23.095207,
+      loading: false
+    })
+    
     // 获取用户当前位置信息
     wx.getLocation({
       type: 'gcj02', //返回可以用于wx.openLocation的经纬度
@@ -124,23 +154,19 @@ Page({
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady: function () {
-    
-  },
-  onShow: function () {
-    // Do something when page show.
-    if (!initFlag) return;
-    if (!app.flags.refresh_index) return;
-    app.flags.refresh_index = false;
-    loadFirstPage(this);
+    console.log('ready')
+    // wx.showNavigationBarLoading();
 
-    
   },
   onPullDownRefresh: function () {
+    console.log('123123456456')
     // Do something when pull down.
-    wx.stopPullDownRefresh();
+    // wx.stopPullDownRefresh();
     // if (mLoading) return;
-    if (!initFlag) return;
-    loadFirstPage(this);
+    // if (!initFlag) return;
+    // wx.showNavigationBarLoading();
+    this.onLoad()
+    
   },
   getUserInfo: function(e) {
     console.log(e)
@@ -185,6 +211,7 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
+    console.log('show')
     this.onLoad();
   },
   gotoDetail: function (e) {
@@ -198,7 +225,7 @@ Page({
   currentChange: function (e) {
     var current = e.detail.current;
     console.log(current,markers.length)
-    if(current==markers.length-1 && current<=99){
+    if(current==markers.length-1 && current>=49){
       //loadmore boxes
       this.loadMore()
     }
@@ -221,7 +248,7 @@ Page({
   },
   loadMore: function () {
     if (!mIsmore) return;
-    wx.showNavigationBarLoading();
+    // wx.showNavigationBarLoading();
     var that = this;
     API.getTreasureBoxesByPage(mPage + 1, PAGE_SIZE, (treasureboxes) => {
       console.log('loadMore', treasureboxes);

@@ -1,3 +1,4 @@
 {
-  "navigationBarTitleText": "宝藏世界"
+  "navigationBarTitleText": "宝藏世界",
+  "enablePullDownRefresh": true
 }

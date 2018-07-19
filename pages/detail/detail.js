@@ -137,6 +137,7 @@ Page({
     that.setData({
       formid: e.detail.formId,
     })
+    console.log(e.detail.formId)
     console.log("join")
     console.log(that.data.status_open, that.data.status_desc)
     //再查询一次宝箱状态是否为待开启，如果是再进行下面步骤
@@ -348,6 +349,36 @@ Page({
                   status_open: false,
                   joinnum: res.joinnum,
                 })
+                var getcreator = Bmob.Query('_User');
+                getcreator.get(res.creator.objectId).then(ress=>{
+                  var getnewbox = Bmob.Query('TreasureBoxes');
+                  getnewbox.get(res.objectId).then(ress2=>{
+                    var temp = {
+                      "touser": ress.authData.weapp.openid,
+                      "template_id": "lRUWdw2USiQ73570mOcGRbi_EOVb4kFsYaQpZ-lIO5A",
+                      "page": "/pages/detail/detail?item=" + JSON.stringify(ress2),
+                      "form_id": ress2.formid,
+                      data: {
+                        keyword1: {
+                          value: res.title,
+                          color: '#173177'
+                        },
+                        keyword2: {
+                          value: '您放置的宝箱已经被开启，点击查看当前状态',
+                          color: '#173177'
+                        }
+                      },
+                      "emphasis_keyword": ""
+                    }
+                    console.log(temp)
+                    Bmob.sendWeAppMessage(temp).then(function (response) {
+                      console.log(response);
+                    }).catch(function (error) {
+                      console.log(error);
+                    });
+                  })
+                  
+                })
               }).catch(err => {
                 console.log("修改box数据失败")
                 console.log(err)
@@ -438,13 +469,44 @@ Page({
             myjoin.set("box", boxID)
             myjoin.set("joinid", that.data.myid)
             myjoin.set("openid", that.data.openid)
-            myjoin.set("formid", that.data.formId)
+            console.log("formid: ",that.data.formid)
+            myjoin.set("formid", that.data.formid)
             myjoin.set("boxid", res.objectId)
             myjoin.save();
             that.setData({
               contentHide: true,
               status_open: false,
               joinnum: res.joinnum,
+            })
+            var getcreator = Bmob.Query('_User');
+            getcreator.get(res.creator.objectId).then(ress => {
+              var getnewbox = Bmob.Query('TreasureBoxes');
+              getnewbox.get(res.objectId).then(ress2 => {
+                var temp = {
+                  "touser": ress.authData.weapp.openid,
+                  "template_id": "lRUWdw2USiQ73570mOcGRbi_EOVb4kFsYaQpZ-lIO5A",
+                  "page": "/pages/detail/detail?item=" + JSON.stringify(ress2),
+                  "form_id": ress2.formid,
+                  data: {
+                    keyword1: {
+                      value: res.title,
+                      color: '#173177'
+                    },
+                    keyword2: {
+                      value: '您放置的宝箱已经被开启，点击查看当前状态',
+                      color: '#173177'
+                    }
+                  },
+                  "emphasis_keyword": ""
+                }
+                console.log(temp)
+                Bmob.sendWeAppMessage(temp).then(function (response) {
+                  console.log(response);
+                }).catch(function (error) {
+                  console.log(error);
+                });
+              })
+
             })
           }).catch(err => {
             console.log("修改box数据失败")
@@ -481,7 +543,7 @@ Page({
               myjoin.set("box", boxID)
               myjoin.set("joinid", that.data.myid)
               myjoin.set("openid", that.data.openid)
-              myjoin.set("formid", that.data.formId)
+              myjoin.set("formid", that.data.formid)
               myjoin.set("boxid", res.objectId)
               myjoin.save();
               that.setData({
@@ -538,7 +600,7 @@ Page({
               myjoin.set("box", boxID)
               myjoin.set("joinid", that.data.myid)
               myjoin.set("openid", that.data.openid)
-              myjoin.set("formid", that.data.formId)
+              myjoin.set("formid", that.data.formid)
               myjoin.set("boxid", res.objectId)
               myjoin.save().then(res3 => {
                 //数据更新成功则发送通知给所有参与者和创建者0000000000000000000000000000000000000000000000000000000

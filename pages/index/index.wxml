@@ -1,4 +1,5 @@
 <!--index.wxml-->
+<loading hidden="{{loading}}">正在加载</loading> 
 <view class="main">
 
   <map id="map" longitude="{{longitude}}" latitude="{{latitude}}" scale="19" bindcontroltap="controltap" markers="{{markers}}" bindmarkertap="markertap" polyline="{{polyline}}" bindregionchange="regionchange" show-location style="width:100%;height: 61.8vh;">
@@ -23,19 +24,22 @@
     </cover-view>
   </map>
   <!-- <view class="tips">请左右滑动下面切换藏宝点↓↓↓</view> -->
-  <view id="swiper_area">
+  <view id="swiper_area" wx:if="{{hideswiper}}">
     <!-- <image data-item="{{item.data}}" style="width: 100%; " mode="widthFix" src="http://bmob-cdn-20364.b0.upaiyun.com/2018/07/11/f323264840156a8b80b9da792c10bb07.jpg"></image> -->
     <swiper current="{{current}}" style="width: 100%; height:38.2vh;" bindchange="currentChange">
       <block wx:for="{{markers}}" wx:key="id">
         <swiper-item bindtap="gotoDetail" data-item="{{item.data}}">
           <view style="padding: 0px 10px;" data-item="{{item.data}}">
-            <text data-item="{{item.data}}" class="itemtext_title">{{item.data.title}}</text>
-            <text data-item="{{item.data}}" class="sub_title">离我{{item.data.distance}}km</text>
+            <text data-item="{{item.data}}" class="itemtext_title">宝箱: {{item.data.title}}</text>
+            <text data-item="{{item.data}}" class="sub_title" style="position: fixed; right: 10px; color: green;">距离我{{item.data.distance}}km</text>
             <image data-item="{{item.data}}" style="width: 100%; " mode="aspectFill" src="{{item.data.imgsrc}}"></image>
             <text data-item="{{item.data}}" class="address">{{item.data.address}}</text>
           </view>
         </swiper-item>
       </block>
     </swiper>
+  </view>
+  <view id="no_box_around" wx:if="{{!hideswiper}}" style="width: 100%; height:38.2vh; display: flex; justify-content: center;">
+  <text style="position: fixed; bottom: 19vh ; color:#888">附近没有宝箱，请创建</text>
   </view>
 </view>

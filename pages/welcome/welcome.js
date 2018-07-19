@@ -14,7 +14,7 @@ Page({
    */
   onLoad: function(options) {
     var userData = wx.getStorageSync("userData");
-    if(userData.nickName){
+    if(userData.openid){
       wx.redirectTo({
         url: '/pages/index/index'
       })
@@ -31,7 +31,8 @@ Page({
       console.log(res);
       console.log("一键登录成功");
       // wx.setStorageSync('userData', userData);
-      wx.setStorageSync('openid', res.openid);
+      console.log(res.authData.weapp.openid)
+      wx.setStorageSync('openid', res.authData.weapp.openid);
       var userInfo = e.detail.userInfo;
       var nickName = userInfo.nickName;
       var userPic = userInfo.avatarUrl;
@@ -45,7 +46,7 @@ Page({
         var userData = {
           nickName: nickName,
           objectId: res.objectId,
-          openid: res.openid,
+          openid: res.authData.weapp.openid,
           userPic: userPic,
           username: ress.username,
         };
