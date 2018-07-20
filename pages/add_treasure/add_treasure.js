@@ -64,16 +64,16 @@ Page({
     const val = e.detail.value
     console.log(val)
     that.setData({
-      pickvalue: [val],
+      // pickvalue: [val],
       pickname:that.data.picknames[val]
     })
     if(val==0){
       that.setData({
-        titlesave: that.data.title +"",
+        title: "",
       })
     }else {
       that.setData({
-        titlesave: that.data.title + that.data.picknames[val],
+        title: that.data.picknames[val],
       })
     }
   },
@@ -276,9 +276,9 @@ Page({
     console.log("start submit")
     var that = this;
     var title = e.detail.value.title;
-    that.setData({
-      titlesave: title+that.data.pickname,
-    })
+    // that.setData({
+    //   titlesave: title+that.data.pickname,
+    // })
     var address = this.data.address;
     var longitude = this.data.longitude;
     var latitude = this.data.latitude;
@@ -300,7 +300,7 @@ Page({
     var hideNick = this.data.hideNick;
     console.log(formid);
     //先进行表单非空验证
-    if (that.data.titlesave == "") {
+    if (title == "") {
       this.setData({
         showTopTips: true,
         TopTips: '请输入宝箱名称'
@@ -354,7 +354,7 @@ Page({
       var pointer = Bmob.Pointer("_User");
       var poiID = pointer.set(userData.objectId);
       tbox.set("creator",poiID)
-      tbox.set("title",that.data.titlesave);
+      tbox.set("title",title);
       var location = Bmob.GeoPoint({ latitude: latitude, longitude: longitude })
       tbox.set("location",location)
       tbox.set("boxintro",treasureIntro)
