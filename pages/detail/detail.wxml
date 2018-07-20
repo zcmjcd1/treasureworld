@@ -1,4 +1,5 @@
 <!--pages/detail/detail.wxml-->
+<loading hidden="{{hideloading}}">加载中...</loading>
 <view class="weui-toptips weui-toptips_warn" wx:if="{{showTopTips}}">{{TopTips}}</view>
 <view class="center">
   <image src="{{treasurebox.imgsrc}}" bindtap="preview" mode="aspectFill" class="swiper-image" style="width: 100%; height: 200px; background-color: #eeeeee;" />
@@ -17,7 +18,7 @@
 </view>
 <view class="view_publisher">
   <image id="publisher_avatar" src="{{creator_pic}}"></image>
-  <view id="publisher">{{creator_nickname}}</view>
+  <view wx:if="{{hideNick}}" id="publisher">{{creator_nickname}}</view>
 </view>
 <view class="center">
   <view bindtap="openLocation" id="openLocation">

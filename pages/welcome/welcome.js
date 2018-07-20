@@ -6,23 +6,38 @@ Page({
    * 页面的初始数据
    */
   data: {
-
+    loading:true,
+    TopTips: '',
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
+    var that = this;
+    that.setData({
+      loading: false,
+    })
     var userData = wx.getStorageSync("userData");
     if(userData.openid){
+      that.setData({
+        loading: true,
+      })
       wx.redirectTo({
         url: '/pages/index/index'
       })
     }
+    that.setData({
+      loading: true,
+    })
 
 
   },
   onGotUserInfo: function(e) {
+    var that = this;
+    that.setData({
+      loading: false,
+    })
     console.log(e.detail.errMsg)
     console.log(e.detail.userInfo)
     console.log(e.detail.rawData)
@@ -52,12 +67,24 @@ Page({
         };
         wx.setStorageSync('userData', userData);
       })
+      that.setData({
+        loading: true,
+      })
       wx.redirectTo({
         url: '/pages/index/index'
       })
     }).catch(err => {
+      that.setData({
+        showTopTips: true,
+        TopTips:"网络有问题，无法获取用户信息",
+      })
       console.log(err);
     })
+    setTimeout(function () {
+      that.setData({
+        showTopTips: false
+      });
+    }, 2000);
   },
 
   /**

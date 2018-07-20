@@ -1,1 +1,2 @@
 /* pages/welcome/welcome.wxss */
+@import '/style/weui.wxss';

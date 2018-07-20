@@ -27,6 +27,7 @@ Page({
    * 页面的初始数据
    */
   data: {
+    hideNick: false,
     imgsrc: '../../images/baoxiang.png',
     loading: true,
     address: '点击选择位置',
@@ -50,7 +51,31 @@ Page({
     noteNowLenContent: 0,
     noteNowLenPassNote: 0,
     types: ["不抽奖", "时效抽奖宝箱", "人数抽奖宝箱"],
+    picknames:["常用名称","普通宝箱","鸡汤宝箱","毒舌宝箱","经验宝箱","感悟宝箱","密码宝箱","宝图宝箱","宝藏宝箱","商家宝箱","连环宝箱"],
+    pickindex: 1,
+    pickname:"",
+    pickvalue:[0],
     typeIndex: "0",
+    title:"",
+    titlesave:"",
+  },
+  bindChangePick: function (e) {
+    var that = this
+    const val = e.detail.value
+    console.log(val)
+    that.setData({
+      pickvalue: [val],
+      pickname:that.data.picknames[val]
+    })
+    if(val==0){
+      that.setData({
+        titlesave: that.data.title +"",
+      })
+    }else {
+      that.setData({
+        titlesave: that.data.title + that.data.picknames[val],
+      })
+    }
   },
 
   /**
@@ -58,6 +83,14 @@ Page({
    */
   onLoad: function(options) {
     var that = this
+    var getPickNames = Bmob.Query('constants')
+    getPickNames.equalTo("valname", "==", "pickname");
+    getPickNames.find().then(respick => {
+      // var obj = JSON.parse(res)
+      that.setData({
+        picknames: respick[0].arrayval1,
+      })
+    });
     var date = new Date();
     var hour = date.getHours();
     var minute = date.getMinutes();
@@ -96,6 +129,17 @@ Page({
       this.setData({
         passHide: true,
         passIndex:1
+      })
+    }
+  },
+  switch2Change: function (e) {
+    if (e.detail.value == false) {
+      this.setData({
+        hideNick: false,
+      })
+    } else if (e.detail.value == true) {
+      this.setData({
+        hideNick: true,
       })
     }
   },
@@ -232,6 +276,9 @@ Page({
     console.log("start submit")
     var that = this;
     var title = e.detail.value.title;
+    that.setData({
+      titlesave: title+that.data.pickname,
+    })
     var address = this.data.address;
     var longitude = this.data.longitude;
     var latitude = this.data.latitude;
@@ -250,9 +297,10 @@ Page({
     var passIndex = this.data.passIndex;
     var checkDate = new Date();
     var formid = e.detail.formId;
+    var hideNick = this.data.hideNick;
     console.log(formid);
     //先进行表单非空验证
-    if (title == "") {
+    if (that.data.titlesave == "") {
       this.setData({
         showTopTips: true,
         TopTips: '请输入宝箱名称'
@@ -306,13 +354,14 @@ Page({
       var pointer = Bmob.Pointer("_User");
       var poiID = pointer.set(userData.objectId);
       tbox.set("creator",poiID)
-      tbox.set("title",title);
+      tbox.set("title",that.data.titlesave);
       var location = Bmob.GeoPoint({ latitude: latitude, longitude: longitude })
       tbox.set("location",location)
       tbox.set("boxintro",treasureIntro)
       tbox.set("boxcontent",treasureContent)
       tbox.set("gettype",typeIndex)//0不抽奖1时效抽奖2人数抽奖
       tbox.set("formid",formid)
+      tbox.set("hideNick",hideNick)
       console.log(timelimit)
       if(typeIndex=='1'){
         // let timedata = {

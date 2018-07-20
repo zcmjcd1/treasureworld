@@ -24,7 +24,6 @@ module.exports = {
       query.equalTo("status","<", 1);
       // 查询
       query.find().then(res => {
-        console.log(res)
         var jsonArray = JSON.parse(JSON.stringify(res));
         //distance
         for (var x in jsonArray) {
@@ -55,12 +54,10 @@ module.exports = {
     query.or(jquery, cquery);
     query.order('status')
     query.find().then(res => {
-      console.log(res)
       var jsonArray = JSON.parse(JSON.stringify(res));
       for (var x in jsonArray) {
         jsonArray[x].endday = jsonArray[x].updatedAt.substring(0, 10)
         this.getSubTitle(jsonArray[x], (a, b, c, d) => {
-          console.log(a, b, c, d)
           jsonArray[x].timehide = a
           jsonArray[x].peoplehide = b
           jsonArray[x].needpass = c
@@ -118,7 +115,6 @@ module.exports = {
     query.equalTo("winner", "==", user)
     query.order('status')
     query.find().then(res => {
-      console.log(res)
       var jsonArray = JSON.parse(JSON.stringify(res));
       for (var x in jsonArray) {
         jsonArray[x].endday = jsonArray[x].updatedAt.substring(0, 10)
@@ -160,7 +156,6 @@ module.exports = {
     } else if (treasurebox.gettype == '0' && treasurebox.haspass == 1) {
       needpass = true
     }
-    console.log(treasurebox, timehide, peoplehide, needpass, normalbox)
     cb(timehide, peoplehide, needpass, normalbox)
   }
 }

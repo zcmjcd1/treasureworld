@@ -24,7 +24,7 @@ function loadFirstPage(that) {
 
   // setLoading(true);
   API.getTreasureBoxesByPage(1, PAGE_SIZE, (treasureboxes) => {
-    console.log('loadFirstPage', treasureboxes);
+    // console.log('loadFirstPage', treasureboxes);
     // setLoading(false);
     if (treasureboxes.length<1){
       that.setData({
@@ -39,7 +39,7 @@ function loadFirstPage(that) {
       ismore: mIsmore
     })
     var treasures = mTreasureboxList;
-    console.log(treasures)
+    // console.log(treasures)
     //清空
     markers = [];
     for (var x in treasures) {
@@ -65,12 +65,11 @@ function loadFirstPage(that) {
         markers: markers
       })
     }
-  })
-  that.setData({
-    loading:true,
-  })
-  wx.stopPullDownRefresh(); 
-  wx.hideNavigationBarLoading();
+    that.setData({
+      loading: true,
+    })
+    wx.stopPullDownRefresh();
+  }) 
 }
 Page({
   data: {
@@ -213,6 +212,9 @@ Page({
   onShow: function () {
     console.log('show')
     this.onLoad();
+    // this.setData({
+    //   loading: true,
+    // })
   },
   gotoDetail: function (e) {
     var item = e.target.dataset.item;
@@ -224,7 +226,7 @@ Page({
   },
   currentChange: function (e) {
     var current = e.detail.current;
-    console.log(current,markers.length)
+    // console.log(current,markers.length)
     if(current==markers.length-1 && current>=49){
       //loadmore boxes
       this.loadMore()
@@ -250,8 +252,11 @@ Page({
     if (!mIsmore) return;
     // wx.showNavigationBarLoading();
     var that = this;
+    that.setData({
+      loading: false,
+    })
     API.getTreasureBoxesByPage(mPage + 1, PAGE_SIZE, (treasureboxes) => {
-      console.log('loadMore', treasureboxes);
+      // console.log('loadMore', treasureboxes);
       mIsmore = (treasureboxes.length > 0);
       mPage++;
       mTreasureboxList = mTreasureboxList.concat(treasureboxes);
@@ -259,7 +264,9 @@ Page({
         treasures: mTreasureboxList,
         ismore: mIsmore
       })
-      wx.hideNavigationBarLoading()
+      that.setData({
+        loading: true,
+      })
     })
   }
 })

@@ -27,7 +27,7 @@
   flex-direction: row;
 }
 .updateday{
-  position:fixed;
+  position:absolute;
   right: 5px;
 }
 .oldname{

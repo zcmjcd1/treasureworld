@@ -39,6 +39,19 @@ font-size:14px;
   margin: 30rpx auto;
   border-radius: 50px;
 }
+.button2 {
+  width: 150rpx;
+  height: 80%;
+  /* line-height: 80rpx; */
+  text-align: center;
+  font-size: 14px;
+  border: 0 none;
+  background: #118fff;
+  color: #fff;
+  padding:0 0rpx;
+  /* margin: auto auto; */
+  border-radius: 10px;
+}
 
 .add_pic {
   padding: 0 40rpx;

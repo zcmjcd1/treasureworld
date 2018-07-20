@@ -13,6 +13,7 @@ Page({
    * 页面的初始数据
    */
   data: {
+    hideNick: false,
     showTopTips: false,
     TopTips: "",
     passinput: "",
@@ -28,6 +29,7 @@ Page({
     timelimit: "",
     peoplelimit: 0,
     join_by_status_button_text: '开启宝箱',
+    hideloading: false,
   },
 
   /**
@@ -35,14 +37,27 @@ Page({
    */
   onLoad: function(options) {
     var that = this;
+    that.setData({
+      hideloading: false,
+    })
     var userdata = wx.getStorageSync("userData")
     var openid = userdata.openid;
     that.setData({
       openid: openid
     })
-    console.log('options', options);
+    // console.log('options', options);
     if (options.item) {
+      
       treasurebox = JSON.parse(options.item);
+      if (treasurebox.hideNick) {
+        that.setData({
+          hideNick: !treasurebox.hideNick
+        })
+      } else {
+        that.setData({
+          hideNick: true,
+        })
+      }
       if (treasurebox.gettype == 0 && treasurebox.haspass == 0) {
         that.setData({
           normalbox: true,
@@ -128,6 +143,9 @@ Page({
       });
       //获取参与总数和前十个参与人的头像并且展示出来
       // loadjoiners(this);
+      that.setData({
+        hideloading: true,
+      })
     } else {
       console.log("detail没有item")
     }
@@ -185,7 +203,7 @@ Page({
                 res.increment("joinnum");
                 res.save().then(res2 => {
                   console.log("修改box数据成功")
-                  console.log(res)
+                  // console.log(res)
                   //参与表添加数据
                   const pointUser = Bmob.Pointer('_User')
                   const pointID = pointUser.set(that.data.myid)
@@ -242,7 +260,7 @@ Page({
                 }
                 res.save().then(res2 => {
                   console.log("修改box数据成功")
-                  console.log("res2: ",res2)
+                  // console.log("res2: ",res2)
                   //参与表添加数据
                   const pointUser = Bmob.Pointer('_User')
                   const pointID = pointUser.set(that.data.myid)
@@ -261,8 +279,8 @@ Page({
                     const getwinner = Bmob.Query('_User');
                     getwinner.find(res2.winner).then(res4=>{
                       // var authdata = JSON.parse(JSON.stringify(res4.authData));
-                      console.log("openip:", res4[0]);
-                      console.log("sendres:",res)
+                      // console.log("openip:", res4[0]);
+                      // console.log("sendres:",res)
                       Bmob.Query('TreasureBoxes').get(res.objectId).then(res5 =>{
                         var temp = {
                           "touser": res4[0].authData.weapp.openid,
@@ -330,7 +348,7 @@ Page({
               res.increment("joinnum");
               res.save().then(res2 => {
                 console.log("修改box数据成功")
-                console.log(res)
+                // console.log(res)
                 //参与表添加数据
                 const pointUser = Bmob.Pointer('_User')
                 const pointID = pointUser.set(that.data.myid)
@@ -397,6 +415,12 @@ Page({
         })
 
       }
+      if (res.status == 1 ) {
+        this.setData({
+          showTopTips: true,
+          TopTips: '宝箱已经被开启，请刷新地图'
+        })
+      }
     }).catch(err => {
       console.log(err)
       console.log("加入失败");
@@ -423,6 +447,9 @@ Page({
   },
   confirmpass: function() {
     var that = this;
+    that.setData({
+      hideloading: false,
+    })
     var passinput = that.data.passinput;
     //验证passinput是否为空，空则提示输入口令
     if (passinput == "") {
@@ -458,7 +485,7 @@ Page({
           res.increment("joinnum");
           res.save().then(res2 => {
             console.log("修改box数据成功")
-            console.log(res)
+            // console.log(res)
             //参与表添加数据
             const pointUser = Bmob.Pointer('_User')
             const pointID = pointUser.set(that.data.myid)
@@ -532,7 +559,7 @@ Page({
             res.increment("joinnum");
             res.save().then(res2 => {
               console.log("修改box数据成功")
-              console.log(res)
+              // console.log(res)
               //参与表添加数据
               const pointUser = Bmob.Pointer('_User')
               const pointID = pointUser.set(that.data.myid)
@@ -589,7 +616,7 @@ Page({
             }
             res.save().then(res2 => {
               console.log("修改box数据成功")
-              console.log("res2: ", res2)
+              // console.log("res2: ", res2)
               //参与表添加数据
               const pointUser = Bmob.Pointer('_User')
               const pointID = pointUser.set(that.data.myid)
@@ -608,8 +635,8 @@ Page({
                 const getwinner = Bmob.Query('_User');
                 getwinner.find(res2.winner).then(res4 => {
                   // var authdata = JSON.parse(JSON.stringify(res4.authData));
-                  console.log("openip:", res4[0]);
-                  console.log("sendres:", res3)
+                  // console.log("openip:", res4[0]);
+                  // console.log("sendres:", res3)
                   Bmob.Query('TreasureBoxes').get(res.objectId).then(res5 => {
                     var temp = {
                       "touser": res4[0].authData.weapp.openid,
@@ -680,6 +707,9 @@ Page({
     that.setData({
       hidenpassmodal: true,
     })
+    that.setData({
+      hideloading: true,
+    })
   },
   //查看宝箱大图
   preview: function(e) {
@@ -711,6 +741,8 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function() {
+    var that = this;
+    
 
   },
 

@@ -10,7 +10,7 @@ function loadFirstPage(that,options) {
     case 'all':
       console.log('1')
       API.getTreasureBoxesAllByPage(options.user, 1, PAGE_SIZE, (res) => {
-        console.log(res)
+        // console.log(res)
         if (res.length > 0) {
           if (options.num <= 5) {
             that.setData({
@@ -22,7 +22,7 @@ function loadFirstPage(that,options) {
             })
           }
           for (var x in res) {
-            console.log(res[x])
+            // console.log(res[x])
             if (res[x].status == 0) {
               waitboxes.push(res[x])
             } else {
@@ -50,7 +50,7 @@ function loadFirstPage(that,options) {
     case 'create':
       console.log('2')
       API.getTreasureBoxesCreateByPage(options.user, 1, PAGE_SIZE, (res) => {
-        console.log(res)
+        // console.log(res)
         if (res.length > 0) {
           if (options.num <= 5) {
             that.setData({
@@ -62,7 +62,7 @@ function loadFirstPage(that,options) {
             })
           }
           for (var x in res) {
-            console.log(res[x])
+            // console.log(res[x])
             if(res[x].status==0){
               waitboxes.push(res[x])
             }else {
@@ -90,7 +90,7 @@ function loadFirstPage(that,options) {
     case 'own':
       console.log('3')
       API.getTreasureBoxesOwnByPage(options.user, 1, PAGE_SIZE, (res) => {
-        console.log(res)
+        // console.log(res)
         console.log(res.length,options.num)
         if(res.length>0){
           if (options.num <= 5) {
@@ -102,37 +102,8 @@ function loadFirstPage(that,options) {
               hasmore: true,
             })
           }
-          that.setData({
-            oldboxes: res,
-            nobox: false,
-            hasoldbox: true,
-          })
-        }
-      })
-      break;
-  }
-}
-function loadMorePage(that, options) {
-  switch (options.type) {
-    case 'all':
-      console.log('1')
-      API.getTreasureBoxesAllByPage(options.user, mPage+1, PAGE_SIZE, (res) => {
-        console.log(res)
-        mPage++
-        if (res.length > 0) {
-          if (options.num <= 5*mPage) {
-            that.setData({
-              datalength: that.data.datalength + res.length,
-              hasmore:false,
-            })
-          } else {
-            that.setData({
-              datalength: that.data.datalength + res.length,
-              hasmore: true,
-            })
-          }
           for (var x in res) {
-            console.log(res[x])
+            // console.log(res[x])
             if (res[x].status == 0) {
               waitboxes.push(res[x])
             } else {
@@ -150,6 +121,54 @@ function loadMorePage(that, options) {
             })
           }
           that.setData({
+            nobox: false,
+            oldboxes: oldboxes,
+            waitboxes: waitboxes
+          })
+        }
+      })
+      break;
+  }
+}
+function loadMorePage(that, options) {
+  switch (options.type) {
+    case 'all':
+      console.log('1')
+      API.getTreasureBoxesAllByPage(options.user, mPage+1, PAGE_SIZE, (res) => {
+        // console.log(res)
+        mPage++
+        if (res.length > 0) {
+          if (options.num <= 5*mPage) {
+            that.setData({
+              datalength: that.data.datalength + res.length,
+              hasmore:false,
+            })
+          } else {
+            that.setData({
+              datalength: that.data.datalength + res.length,
+              hasmore: true,
+            })
+          }
+          for (var x in res) {
+            // console.log(res[x])
+            if (res[x].status == 0) {
+              waitboxes.push(res[x])
+            } else {
+              oldboxes.push(res[x])
+            }
+          }
+          if (waitboxes.length > 0) {
+            that.setData({
+              haswaitbox: true,
+            })
+          }
+          if (oldboxes.length > 0) {
+            that.setData({
+              hasoldbox: true,
+            })
+          }
+          
+          that.setData({
             oldboxes: oldboxes,
             waitboxes: waitboxes
           })
@@ -159,7 +178,7 @@ function loadMorePage(that, options) {
     case 'create':
       console.log('2')
       API.getTreasureBoxesCreateByPage(options.user, mPage+1, PAGE_SIZE, (res) => {
-        console.log(res)
+        // console.log(res)
         mPage++
         if (res.length > 0) {
           if (options.num <= 5 * mPage) {
@@ -174,7 +193,7 @@ function loadMorePage(that, options) {
             })
           }
           for (var x in res) {
-            console.log(res[x])
+            // console.log(res[x])
             if (res[x].status == 0) {
               waitboxes.push(res[x])
             } else {
@@ -202,7 +221,7 @@ function loadMorePage(that, options) {
     case 'own':
       console.log('3')
       API.getTreasureBoxesOwnByPage(options.user, mPage+1, PAGE_SIZE, (res) => {
-        console.log(res)
+        // console.log(res)
         mPage++
         console.log(res.length, options.num)
         if (res.length > 0) {
@@ -217,8 +236,27 @@ function loadMorePage(that, options) {
               hasmore: true,
             })
           }
+          console.log('2222222222222222', oldboxes.length, waitboxes.length)
+          for (var x in res) {
+            // console.log(res[x])
+            if (res[x].status == 0) {
+              waitboxes.push(res[x])
+            } else {
+              oldboxes.push(res[x])
+            }
+          }
+          if (waitboxes.length > 0) {
+            that.setData({
+              haswaitbox: true,
+            })
+          }
+          if (oldboxes.length > 0) {
+            that.setData({
+              hasoldbox: true,
+            })
+          }
           that.setData({
-            oldboxes: res,
+            oldboxes: oldboxes,
             nobox: false,
             hasoldbox: true,
           })
@@ -263,6 +301,7 @@ Page({
    */
   onLoad: function (options) {
     var that = this;
+    console.log('11111111111111111111111111111111')
     oldboxes=[]
     waitboxes=[]
     mPage=1
