@@ -52,7 +52,7 @@ module.exports = {
     const poiID = pointer.set(user)
     const cquery = query.equalTo("creator", "==", poiID)
     query.or(jquery, cquery);
-    query.order('status')
+    query.order('status', '-updatedAt')
     query.find().then(res => {
       var jsonArray = JSON.parse(JSON.stringify(res));
       for (var x in jsonArray) {
@@ -83,7 +83,7 @@ module.exports = {
     const pointer = Bmob.Pointer('_User')
     const poiID = pointer.set(user)
     query.equalTo("creator", "==", poiID)
-    query.order('status')
+    query.order('status', '-updatedAt')
     query.find().then(res => {
       var jsonArray = JSON.parse(JSON.stringify(res));
       for (var x in jsonArray) {
@@ -113,7 +113,7 @@ module.exports = {
     // query.notEqualTo("hide", true);
     // 查询
     query.equalTo("winner", "==", user)
-    query.order('status')
+    query.order('-updatedAt')
     query.find().then(res => {
       var jsonArray = JSON.parse(JSON.stringify(res));
       for (var x in jsonArray) {

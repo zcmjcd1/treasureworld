@@ -454,6 +454,9 @@ Page({
     //验证passinput是否为空，空则提示输入口令
     if (passinput == "") {
       that.setData({
+        hideloading: false,
+      })
+      that.setData({
         showTopTips: true,
         TopTips: '请输入口令'
       });

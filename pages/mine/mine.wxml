@@ -1,7 +1,7 @@
 <!--pages/mine/mine.wxml-->
 <!-- 全部宝箱，创建宝箱，获取宝箱 三个数字 -->
 <view class="page">
-  <view class="i-header" style="height:300rpx;">
+  <view class="i-header" style="height:365rpx;">
     <view>
       <view></view>
       <view>
@@ -36,7 +36,7 @@
   <loading hidden="{{loading}}">
     授权中...
   </loading>
-  <view class="page__bd" wx:if="{{!userInfo.userPic}}">
+  <!-- <view class="page__bd" wx:if="{{!userInfo.userPic}}">
     <view class="weui-panel">
       <view class="weui-panel__hd">解锁更多功能</view>
       <view class="weui-panel__bd">
@@ -48,7 +48,7 @@
         </view>
       </view>
     </view>
-  </view>
+  </view> -->
   <view class="page__bd">
 
     <view class="weui-panel">

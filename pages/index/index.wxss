@@ -17,23 +17,15 @@
 
 .add_treasure {
   position: absolute;
+  bottom: 40rpx;
+  right: 50rpx;
+  border-width:1px;
+  border-style: solid;
+  border-color: #d9d9d9;
   width: 108rpx;
   height: 84rpx;
   box-shadow: 0 0rpx 25rpx rgba(0, 0, 0, 0.5);
   background: #fff;
-  border-radius: 20%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-.add_treasurew {
-  position: absolute;
-  bottom: 40rpx;
-  right: 50rpx;
-  width: 112rpx;
-  height: 87rpx;
-  box-shadow: 0 0rpx 25rpx rgba(0, 0, 0, 0.5);
-  background: #d9d9d9;
   border-radius: 20%;
   display: flex;
   align-items: center;
@@ -52,23 +44,15 @@
 
 .mine {
   position: absolute;
+  bottom: 40rpx;
+  left: 50rpx;
+  border-width:1px;
+  border-style: solid;
+  border-color: #d9d9d9;
   width: 84rpx;
   height: 84rpx;
   box-shadow: 0 0rpx 25rpx rgba(0, 0, 0, 0.5);
   background: #fff;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-.minew {
-  position: absolute;
-  bottom: 40rpx;
-  left: 50rpx;
-  width: 87rpx;
-  height: 87rpx;
-  box-shadow: 0 0rpx 25rpx rgba(0, 0, 0, 0.5);
-  background: #d9d9d9;
   border-radius: 50%;
   display: flex;
   align-items: center;
@@ -77,25 +61,15 @@
 
 .loc {
   position: absolute;
-  width: 84rpx;
-  height: 84rpx;
-  border: none;
-  box-shadow: 0 0 15rpx rgba(0, 0, 0, 0.4);
-  background: #fff;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-.locw {
-  position: absolute;
   bottom: 160rpx;
   left: 50rpx;
-  width: 87rpx;
-  height: 87rpx;
-  border: none;
-  box-shadow: 0 0 15rpx rgba(0, 0, 0, 0.4);
-  background: #d9d9d9;
+  border-width:1px;
+  border-style: solid;
+  border-color: #d9d9d9;
+  width: 84rpx;
+  height: 84rpx;
+  box-shadow: 0 0rpx 25rpx rgba(0, 0, 0, 0.5);
+  background: #fff;
   border-radius: 50%;
   display: flex;
   align-items: center;

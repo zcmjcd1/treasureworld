@@ -19,18 +19,38 @@ Page({
       loading: false,
     })
     var userData = wx.getStorageSync("userData");
-    if(userData.openid){
-      that.setData({
-        loading: true,
-      })
-      wx.redirectTo({
-        url: '/pages/index/index'
+    
+    if(userData.openid && userData.objectId ){
+      var query = Bmob.Query("_User");
+      query.get(userData.objectId).then(res => {
+        console.log("11111111111",res,userData)
+        if(res.userPic || res.nickName){
+          wx.redirectTo({
+            url: '/pages/index/index'
+          })
+        }
+        that.setData({
+          loading: true,
+        })
+      }).catch(err=>{
+        console.log(err)
+        that.setData({
+          loading: true,
+        })
+        that.setData({
+          showTopTips: true,
+          TopTips: "网络有问题，无法获取用户信息",
+        })
       })
     }
     that.setData({
       loading: true,
     })
-
+    setTimeout(function () {
+      that.setData({
+        showTopTips: false
+      });
+    }, 2000);
 
   },
   onGotUserInfo: function(e) {
@@ -39,7 +59,7 @@ Page({
       loading: false,
     })
     console.log(e.detail.errMsg)
-    console.log(e.detail.userInfo)
+    console.log('1111111111111111',e.detail.userInfo)
     console.log(e.detail.rawData)
     //一键登录
     Bmob.User.auth().then(res => {

@@ -39,14 +39,14 @@
       <!-- 宝箱介绍 -->
       <view class="mod-a mt20">
         <view class="mod-big my-nick">
-          <textarea name="intro" class="weui-textarea" placeholder="请简单介绍您的宝箱" value="{{intro}}" style="height: 7em" bindinput="bindTextAreaChangeIntro" maxlength="{{noteMaxLen}}" />
+          <textarea name="intro" class="weui-textarea" placeholder="请简单介绍您的宝箱！" value="{{intro}}" style="height: 7em" bindinput="bindTextAreaChangeIntro" maxlength="{{noteMaxLen}}" />
           <view class="chnumber">{{noteNowLenIntro}}/{{noteMaxLen}}</view>
         </view>
       </view>
       <!-- 宝箱宝贝 -->
       <view class="mod-a mt20">
         <view class="mod-big my-nick">
-          <textarea name="content" class="weui-textarea" placeholder="请输入您的宝贝" value="{{content}}" style="height: 7em" bindinput="bindTextAreaChangeContent" maxlength="{{noteMaxLen}}" />
+          <textarea name="content" class="weui-textarea" placeholder="请放入您的宝贝！！！可以是文字信息，鸡汤文，经历感悟，京东e卡密码，优惠券，连环宝箱的下一个宝箱位置，等等。玩法多样！！！" value="{{content}}" style="height: 7em" bindinput="bindTextAreaChangeContent" maxlength="{{noteMaxLen}}" />
           <view class="chnumber">{{noteNowLenContent}}/{{noteMaxLen}}</view>
         </view>
       </view>
